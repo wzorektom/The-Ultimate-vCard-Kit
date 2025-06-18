@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Basic Meta -->
+        <meta charset="UTF-8" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="
+         default-src 'self';
+         script-src 'self';
+         style-src 'self';
+         img-src 'self' data:;
+         object-src 'none';
+         base-uri 'self';
+         form-action 'self';
+         "
+        />
+
+        <!-- ==================== -->
+        <!-- Basic Page Metadata  -->
+        <!-- ==================== -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Mira Solensen" />
+        <meta name="description" content="The digital business card of Mira Solensen - ready to save, share, and connect." />
+        <title>Mira Solensen Digital Business Card</title>
+        
+        <!-- =========================== -->
+        <!-- SEO Indexing Instructions   -->
+        <!-- =========================== -->
+        <!-- 
+         This tag tells search engines not to index this page or follow its links.
+         Important: It is only a *request*, not a guarantee.
+         Some bots may still index the page despite this.
+         
+         If you want your vCard to appear in search engines (e.g. Google), 
+         remove this line or comment it out.
+         -->
+        <meta name="robots" content="noindex, nofollow" />
+        
+        <!-- ======================== -->
+        <!-- Favicon and App Icons    -->
+        <!-- ======================== -->
+        <link rel="icon" href="https://vcard-demo.co.uk/miras/vcard/images/favi-100x100.png" />
+        <link rel="apple-touch-icon" sizes="128x128" href="https://vcard-demo.co.uk/miras/vcard/images/bookmark-128x128.png" />
+        
+        <!-- ================================ -->
+        <!-- Open Graph (Facebook, LinkedIn)  -->
+        <!-- ================================ -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Mira Solensen Digital Business Card" />
+        <meta property="og:description" content="The digital business card of Mira Solensen - ready to save, share, and connect." />
+        <meta property="og:image" content="https://vcard-demo.co.uk/miras/vcard/images/share-1200x630.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://vcard-demo.co.uk/miras/vcard/" />
+        
+        <!-- ======================== -->
+        <!-- Twitter Card Metadata    -->
+        <!-- ======================== -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mira Solensen Digital Business Card" />
+        <meta name="twitter:description" content="The digital business card of Mira Solensen - ready to save, share, and connect." />
+        <meta name="twitter:image" content="https://vcard-demo.co.uk/miras/vcard/images/share-1200x630.png" />
+        <meta name="twitter:url" content="https://vcard-demo.co.uk/miras/vcard/" />
+        
+        <!-- Styles -->
+        <link rel="stylesheet" href="./styles/style.min.css" />
+
+
+    </head>
+    <body id="body">
+      <a href="https://pixelpeakstudio.co.uk" class="attribution-hidden">Web Design by PixelPeakStudio</a>
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="symbol-defs">
+            
+          <!-- Close icon: a simple "X" used to close QR modal -->
+            <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6L6 18M6 6l12 12"></path>
+            </symbol>
+            
+            <!-- Call icon: represents a phone handset for call actions -->
+            <symbol id="icon-call" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
+                />
+            </symbol>
+            
+            <!-- Save Contact icon: a user profile with a plus sign indicating "save contact" -->
+            <symbol id="icon-save-contact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="2">
+                <circle cx="8.5" cy="7" r="4" transform="matrix(.875 0 0 .875 4.563 -.625)" fill="none" stroke-width="2.29"></circle>
+                <path d="M5 18c0-3.863 3.137-7 7-7s7 3.137 7 7m-7-2v6m3-3l-3 3-3-3" fill="none" stroke-width="2"></path>
+            </symbol>
+            
+            <!-- Email icon: envelope symbol for email -->
+            <symbol id="icon-email" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <path d="M22 6l-10 7L2 6"></path>
+            </symbol>
+           
+            <!-- WhatsApp icon: WhatsApp logo used for linking WhatsApp contact -->
+            <symbol id="icon-whatsapp" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                <path
+                    d="M2.841 16.664A10.987 10.987 0 014.776 3.725c4.297-4.297 11.273-4.297 15.57 0 4.297 4.297 4.297 11.273 0 15.57-3.522 3.522-8.845 4.157-13.018 1.904l-4.142.784a1.002 1.002 0 01-1.167-1.178l.822-4.141zm1.428 3.078l3.045-.576c.238-.045.483-.002.692.12 3.452 2.024 7.966 1.555 10.926-1.405 3.516-3.516 3.516-9.226 0-12.742s-9.226-3.516-12.742 0a8.992 8.992 0 00-1.432 10.86 1 1 0 01.116.696l-.605 3.047z"
+                />
+                <path
+                    fill-rule="nonzero"
+                    d="M17.5 14.002v1.512a1.01 1.01 0 01-1.006 1.006c-.03 0-.06-.002-.09-.004a9.948 9.948 0 01-4.34-1.544 9.811 9.811 0 01-3.016-3.017 9.944 9.944 0 01-1.544-4.359A1.01 1.01 0 018.505 6.5h1.508a1.01 1.01 0 011.006.865c.063.483.181.957.352 1.413.137.367.049.782-.227 1.061l-.638.638a8.039 8.039 0 003.017 3.017l.638-.639a1.008 1.008 0 011.061-.226c.456.17.93.288 1.413.352.503.071.877.513.865 1.021z"
+                />
+            </symbol>
+            
+            <!-- Share icon: three dots connected by lines representing sharing -->
+            <symbol id="icon-share" viewBox="0 0 24 24">
+                <circle cx="17" cy="5" r="3"></circle>
+                <circle cx="5" cy="12" r="3"></circle>
+                <circle cx="17" cy="19" r="3"></circle>
+                <path d="M7.59 13.51l6.83 3.98M14.42 6.51l-6.82 3.98"></path>
+            </symbol>
+            
+            <!-- QR code icon: stylized squares representing a QR code -->
+            <symbol id="icon-qr" viewBox="0 0 24 24">
+                <g>
+                    <path d="M4 4h4v4H4zm0 12h4v4H4zM16 4h4v4h-4z"></path>
+                    <path d="M12 3v15a2 2 0 002 2h4a2 2 0 002-2v-4a2 2 0 00-2-2H3"></path>
+                    <path class="fill-block" d="M15 15h2v2h-2z"></path>
+                </g>
+            </symbol>
+
+            <!-- Social icons: turn on/off social profiles in the vcard.bundle.js -->
+            
+            <symbol id="icon-facebook" viewBox="0 0 24 24">
+            <path d="M15.12 8.575h-1.776V7.43c0-.434.441-.535.653-.535h1.09V4.832l-1.5-.006c-2.097 0-2.585 1.578-2.585 2.585v1.164H9v2.247h2.002V19h2.342v-8.178h1.616l.16-2.247z" fill="currentColor"/>
+            </symbol>
+
+            <symbol id="icon-twitter" viewBox="0 0 32 32">
+            <path d="M18.42,14.009L27.891,3h-2.244l-8.224,9.559L10.855,3H3.28l9.932,14.455L3.28,29h2.244l8.684-10.095,6.936,10.095h7.576l-10.301-14.991h0Zm-3.074,3.573l-1.006-1.439L6.333,4.69h3.447l6.462,9.243,1.006,1.439,8.4,12.015h-3.447l-6.854-9.804h0Z" fill="currentColor"/>
+            </symbol>
+
+            <symbol id="icon-instagram" viewBox="0 0 32 32">
+            <path d="M10.202,2.098c-1.49,.07-2.507,.308-3.396,.657-.92,.359-1.7,.84-2.477,1.619-.776,.779-1.254,1.56-1.61,2.481-.345,.891-.578,1.909-.644,3.4-.066,1.49-.08,1.97-.073,5.771s.024,4.278,.096,5.772c.071,1.489,.308,2.506,.657,3.396,.359,.92,.84,1.7,1.619,2.477,.779,.776,1.559,1.253,2.483,1.61,.89,.344,1.909,.579,3.399,.644,1.49,.065,1.97,.08,5.771,.073,3.801-.007,4.279-.024,5.773-.095s2.505-.309,3.395-.657c.92-.36,1.701-.84,2.477-1.62s1.254-1.561,1.609-2.483c.345-.89,.579-1.909,.644-3.398,.065-1.494,.081-1.971,.073-5.773s-.024-4.278-.095-5.771-.308-2.507-.657-3.397c-.36-.92-.84-1.7-1.619-2.477s-1.561-1.254-2.483-1.609c-.891-.345-1.909-.58-3.399-.644s-1.97-.081-5.772-.074-4.278,.024-5.771,.096m.164,25.309c-1.365-.059-2.106-.286-2.6-.476-.654-.252-1.12-.557-1.612-1.044s-.795-.955-1.05-1.608c-.192-.494-.423-1.234-.487-2.599-.069-1.475-.084-1.918-.092-5.656s.006-4.18,.071-5.656c.058-1.364,.286-2.106,.476-2.6,.252-.655,.556-1.12,1.044-1.612s.955-.795,1.608-1.05c.493-.193,1.234-.422,2.598-.487,1.476-.07,1.919-.084,5.656-.092,3.737-.008,4.181,.006,5.658,.071,1.364,.059,2.106,.285,2.599,.476,.654,.252,1.12,.555,1.612,1.044s.795,.954,1.051,1.609c.193,.492,.422,1.232,.486,2.597,.07,1.476,.086,1.919,.093,5.656,.007,3.737-.006,4.181-.071,5.656-.06,1.365-.286,2.106-.476,2.601-.252,.654-.556,1.12-1.045,1.612s-.955,.795-1.608,1.05c-.493,.192-1.234,.422-2.597,.487-1.476,.069-1.919,.084-5.657,.092s-4.18-.007-5.656-.071M21.779,8.517c.002,.928,.755,1.679,1.683,1.677s1.679-.755,1.677-1.683c-.002-.928-.755-1.679-1.683-1.677,0,0,0,0,0,0-.928,.002-1.678,.755-1.677,1.683m-12.967,7.496c.008,3.97,3.232,7.182,7.202,7.174s7.183-3.232,7.176-7.202c-.008-3.97-3.233-7.183-7.203-7.175s-7.182,3.233-7.174,7.203m2.522-.005c-.005-2.577,2.08-4.671,4.658-4.676,2.577-.005,4.671,2.08,4.676,4.658,.005,2.577-2.08,4.671-4.658,4.676-2.577,.005-4.671-2.079-4.676-4.656h0" fill="currentColor"/>
+            </symbol>
+
+            <symbol id="icon-discord" viewBox="0 0 32 32">
+            <path d="M26.413,6.536c-1.971-.902-4.052-1.543-6.189-1.904-.292,.523-.557,1.061-.793,1.612-2.277-.343-4.592-.343-6.869,0-.236-.551-.5-1.089-.793-1.612-2.139,.365-4.221,1.006-6.194,1.909C1.658,12.336,.596,17.987,1.127,23.558h0c2.294,1.695,4.861,2.984,7.591,3.811,.615-.827,1.158-1.704,1.626-2.622-.888-.332-1.744-.741-2.56-1.222,.215-.156,.425-.316,.628-.472,4.806,2.26,10.37,2.26,15.177,0,.205,.168,.415,.328,.628,.472-.817,.483-1.676,.892-2.565,1.225,.467,.918,1.011,1.794,1.626,2.619,2.732-.824,5.301-2.112,7.596-3.808h0c.623-6.461-1.064-12.06-4.46-17.025Zm-15.396,13.596c-1.479,0-2.702-1.343-2.702-2.994s1.18-3.006,2.697-3.006,2.73,1.354,2.704,3.006-1.192,2.994-2.699,2.994Zm9.967,0c-1.482,0-2.699-1.343-2.699-2.994s1.18-3.006,2.699-3.006,2.723,1.354,2.697,3.006-1.189,2.994-2.697,2.994Z" fill="currentColor"/>
+            </symbol>
+
+            <symbol id="icon-linkedin" viewBox="0 0 32 32">
+            <path d="M26.111,3H5.889c-1.595,0-2.889,1.293-2.889,2.889V26.111c0,1.595,1.293,2.889,2.889,2.889H26.111c1.595,0,2.889-1.293,2.889-2.889V5.889c0-1.595-1.293-2.889-2.889-2.889ZM10.861,25.389h-3.877V12.87h3.877v12.519Zm-1.957-14.158c-1.267,0-2.293-1.034-2.293-2.31s1.026-2.31,2.293-2.31,2.292,1.034,2.292,2.31-1.026,2.31-2.292,2.31Zm16.485,14.158h-3.858v-6.571c0-1.802-.685-2.809-2.111-2.809-1.551,0-2.362,1.048-2.362,2.809v6.571h-3.718V12.87h3.718v1.686s1.118-2.069,3.775-2.069,4.556,1.621,4.556,4.975v7.926Z" 
+                fill="currentColor" fill-rule="evenodd"/>
+            </symbol>
+
+            <symbol id="icon-pinterest" viewBox="0 0 32 32">
+            <path d="M16,2C8.268,2,2,8.268,2,16c0,5.931,3.69,11.001,8.898,13.041-.122-1.108-.233-2.811,.049-4.02,.254-1.093,1.642-6.959,1.642-6.959,0,0-.419-.839-.419-2.079,0-1.947,1.128-3.4,2.533-3.4,1.194,0,1.771,.897,1.771,1.972,0,1.201-.765,2.997-1.16,4.661-.33,1.393,.699,2.53,2.073,2.53,2.488,0,4.401-2.624,4.401-6.411,0-3.352-2.409-5.696-5.848-5.696-3.983,0-6.322,2.988-6.322,6.076,0,1.203,.464,2.494,1.042,3.195,.114,.139,.131,.26,.097,.402-.106,.442-.342,1.393-.389,1.588-.061,.256-.203,.311-.468,.187-1.749-.814-2.842-3.37-2.842-5.424,0-4.416,3.209-8.472,9.25-8.472,4.857,0,8.631,3.461,8.631,8.086,0,4.825-3.042,8.708-7.265,8.708-1.419,0-2.752-.737-3.209-1.608,0,0-.702,2.673-.872,3.328-.316,1.216-1.169,2.74-1.74,3.67,1.31,.406,2.702,.624,4.145,.624,7.732,0,14-6.268,14-14S23.732,2,16,2Z" 
+                fill="currentColor"/>
+            </symbol>
+
+            <symbol id="icon-youtube" viewBox="0 0 32 32">
+            <path d="M31.331,8.248c-.368-1.386-1.452-2.477-2.829-2.848-2.496-.673-12.502-.673-12.502-.673,0,0-10.007,0-12.502,.673-1.377,.37-2.461,1.462-2.829,2.848-.669,2.512-.669,7.752-.669,7.752,0,0,0,5.241,.669,7.752,.368,1.386,1.452,2.477,2.829,2.847,2.496,.673,12.502,.673,12.502,.673,0,0,10.007,0,12.502-.673,1.377-.37,2.461-1.462,2.829-2.847,.669-2.512,.669-7.752,.669-7.752,0,0,0-5.24-.669-7.752ZM12.727,20.758V11.242l8.364,4.758-8.364,4.758Z" 
+                fill="currentColor"/>
+            </symbol>
+
+            <symbol id="icon-tiktok" viewBox="0 0 32 32">
+            <path d="M24.562,7.613c-1.508-.983-2.597-2.557-2.936-4.391-.073-.396-.114-.804-.114-1.221h-4.814l-.008,19.292c-.081,2.16-1.859,3.894-4.039,3.894-.677,0-1.315-.169-1.877-.465-1.288-.678-2.169-2.028-2.169-3.582,0-2.231,1.815-4.047,4.046-4.047,.417,0,.816,.069,1.194,.187v-4.914c-.391-.053-.788-.087-1.194-.087-4.886,0-8.86,3.975-8.86,8.86,0,2.998,1.498,5.65,3.783,7.254,1.439,1.01,3.19,1.606,5.078,1.606,4.886,0,8.86-3.975,8.86-8.86V11.357c1.888,1.355,4.201,2.154,6.697,2.154v-4.814c-1.345,0-2.597-.4-3.647-1.085Z" 
+                fill="currentColor"/>
+            </symbol>
+
+            <symbol id="icon-nextdoor" viewBox="0 0 24 24">
+            <path d="M23.993 9.816L12 2.473l-4.12 2.524V2.473H4.124v4.819L.004 9.816l1.961 3.202 2.16-1.315v9.826h15.749v-9.826l2.159 1.315 1.96-3.202"/>
+            </symbol>
+
+            <!-- Top curved divider -->
+            <symbol id="svg-divider-curve" viewBox="0 0 1000 100" preserveAspectRatio="none">
+            <g fill="currentColor">
+                <path d="M500 80.7C358 68 0 4 0 4V0h1000v84.7c-216 23.3-358 8.6-500-4Z" opacity=".3"></path>
+                <path d="M500 65.7C358 53 0 4 0 4V0h1000v62.7c-216 23.3-358 15.6-500 3Z" opacity=".5"></path>
+                <path d="M500 50.7C358 38 0 4 0 4V0h1000v40.7C784 64 642 63.3 500 50.7Z"></path>
+            </g>
+            </symbol>
+
+            <!-- Footer curved divider -->
+            <symbol id="svg-footer-divider" viewBox="0 0 1000 100" preserveAspectRatio="none">
+            <g fill="currentColor">
+                <path d="M500 80.7C358 68 0 4 0 4V0h1000v84.7c-216 23.3-358 8.6-500-4Z" opacity=".3"></path>
+                <path d="M500 65.7C358 53 0 4 0 4V0h1000v62.7c-216 23.3-358 15.6-500 3Z" opacity=".5"></path>
+                <path d="M500 50.7C358 38 0 4 0 4V0h1000v40.7C784 64 642 63.3 500 50.7Z"></path>
+            </g>
+            </symbol>
+
+        </svg>
+
+        <div id="qr-modal" class="modal-hidden">
+            <div id="qr-modal_header">
+                <a id="qr-modal-close">
+                    <div>
+                        <svg class="icon-svg-close">
+                            <use href="#icon-close"></use>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+            <div id="qr-modal-body">
+                <div id="qr-modal-qr-section">
+                    <div id="qr-code"></div>
+                    <h2 class="modal-title" id="qr-modal-title">Scan the QR Code</h2>
+                    <p class="modal-description" id="qr-modal-description">to view my Business Card on another device</p>
+                </div>
+            </div>
+        </div>
+
+        <header>
+            <div id="header-actions" class="header-actions-hidden">
+                <div>
+                    <a id="share" aria-label="Share this card">
+                        <div>
+                            <svg class="icon-svg-share">
+                                <use href="#icon-share"></use>
+                            </svg>
+                        </div>
+                    </a>
+                    <a id="showQR" aria-label="Show QR code">
+                        <div>
+                            <svg class="icon-svg-qr">
+                                <use href="#icon-qr"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="header-cover">
+                <img id="header-cover-image" src="" alt="Background Pattern" />
+            </div>
+        </header>
+
+         <!-- Top curved divider -->
+        <div class="curve-divider header-curve">
+            <svg class="svg-divider-top" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                <use href="#svg-divider-curve"></use>
+            </svg>
+        </div>
+
+        <main class="main-style">
+
+            <div id="profile">
+                 <div class="profile-avatar-wrapper">
+                <img id="profile-avatar" src="" alt="Photo" />
+                </div>
+                <div id="profile-info">
+                    <p class="profile-name text" aria-label="Full name"></p>
+                    <p class="profile-job-title text" aria-label="Job title"></p>
+                </div>
+            </div>
+            <p class="profile-address text" aria-label="Address"></p>
+            <br />
+            <p class="profile-bio text" aria-label="Bio"></p>
+            <div class="contact-actions">
+                <div id="save-contact">
+                    <a id="vcf-save-contact" rel="noreferrer" href="#" aria-label="Save Contact" class="button-save-contact">
+                        <div class="save-contact-icon">
+                            <svg class="icon-svg">
+                                <use href="#icon-save-contact"></use>
+                            </svg>
+                        </div>
+                        <p class="button-text-color">Save Contact</p>
+                    </a>
+                </div>
+                <div class="button-wrapper">
+                    <div class="button-wrapper-inner">
+                        <a id="call-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Call" class="button-call">
+                            <div class="button-icon-wrapper">
+                                <svg class="icon-svg">
+                                    <use href="#icon-call"></use>
+                                </svg>
+                            </div>
+                        </a>
+                        <p class="text">Call</p>
+                    </div>
+                </div>
+                <div class="button-wrapper">
+                    <div class="button-wrapper-inner">
+                        <a id="email-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Send email" class="button-email">
+                            <div class="button-icon-wrapper">
+                                <svg class="icon-svg">
+                                    <use href="#icon-email"></use>
+                                </svg>
+                            </div>
+                        </a>
+                        <p class="text">Email</p>
+                    </div>
+                </div>
+                <div class="button-wrapper">
+                    <div class="button-wrapper-inner">
+                        <a id="whatsapp-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" href="#" class="button-whatsapp">
+                            <div class="button-icon-wrapper">
+                                <svg class="icon-svg-whatsapp" viewBox="0 0 24 24">
+                                    <use href="#icon-whatsapp" />
+                                </svg>
+                            </div>
+                        </a>
+                        <p class="text">WhatsApp</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Section -->
+            <section class="social-section" aria-labelledby="social-heading">
+            <h3 id="social-heading" class="social-section-heading">Let's Connect</h3>
+            <div id="social-links" class="social-links" aria-label="Social media links">
+                <!-- Social icons injected here -->
+            </div>
+            </section>
+
+
+            <div class="company-info">
+                <div>
+                    <div class="company-info-content text company-info-background">
+                        <p class="company-description" aria-label="Company description"></p>
+                        <div class="company-info-reviews">
+                            <a href="#" target="_blank" class="company-info-review-link">
+                                <span>Loading Reviews...</span>
+                            </a>
+                            <div class="company-info-rating">
+                                <span>Rating:</span>
+                                <span class="company-info-stars"></span>
+                                <span class="company-info-rating-value"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+
+        <!-- Footer Curve Divider -->
+        <div class="curve-divider footer-curve">
+            <svg class="svg-divider-bottom" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                <use href="#svg-divider-curve"></use>
+            </svg>
+        </div>
+
+
+        <footer class="site-footer" role="contentinfo" aria-label="Company footer">
+            <p id="site-footer-tagline" class="footer-tagline"></p>
+            <a id="site-footer-link" href="#" class="footer-link" aria-label="Visit company website">
+                Loading Footer Note...
+            </a>
+            <span id="site-footer-year" aria-label="Current year"></span>
+        </footer>
+
+        <script src="./scripts/qrcode.min.js" type="text/javascript"></script>
+        <script src="./vcard.bundle.js" type="text/javascript"></script>
+
+    </body>
+</html>

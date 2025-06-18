@@ -1,0 +1,855 @@
+/* =============================================================
+   1. Base / Global
+   -------------------------------------------------------------
+   Site-wide background colours and default typography
+   ============================================================= */
+
+   :root {
+  /* ==================================================
+     COLOR PALETTE CONTROLS – Easily Adjust Branding
+  ===================================================*/
+  --color-primary: #b28bb2;              /* Main branding color */
+  --color-light-bg: #fff;                /* Light backgrounds */
+  --color-dark-text: #000;               /* Main text color */
+  --color-light-text: #fff;              /* White text/icons/contact-social buttons */
+  --color-muted-bg: #e5e7eb;             /* Soft grey (company info/thin divider) */
+  --color-dark-close: #181818;           /* QR Modal Close button - X */
+
+  /* ==================================================
+     HEADER SECTION
+  ===================================================*/
+  --main-bg-color: var(--color-primary);
+  --header-icon-stroke: var(--color-light-text);   /* Share/QR Code icons
+
+  /* ==================================================
+     CARD (MAIN SECTION)
+  ===================================================*/
+  --card-bg-color: var(--color-light-bg);
+  --card-text-color: var(--color-dark-text);
+
+  /* ==================================================
+     AVATAR/HEADSHOT SPACING - UP/DOWN
+  ===================================================*/
+  --avatar-offset: -5rem; 
+
+  /* ==================================================
+     CONTACT BUTTONS
+  ===================================================*/
+  --contact-button-bg: var(--color-primary);
+  --contact-button-icon: var(--color-light-text);
+
+  /* Save Contact Button */
+  --save-contact-bg: var(--color-primary);
+  --save-contact-text: var(--color-light-text);
+
+  /* ==================================================
+     MODAL / QR SECTION
+  ===================================================*/
+  --modal-bg-color: var(--color-light-bg);
+  --modal-title-color: var(--color-primary);
+  --modal-description-color: var(--color-primary);
+  --modal-title-size: 1.25rem;
+  --modal-description-size: 0.875rem;
+  --modal-close-icon: var(--color-dark-close);
+  --qr-code-bg: var(--color-muted-bg);
+  --qr-code-color: var(--color-dark-close);
+
+  /* ==================================================
+     COMPANY INFO SECTION
+  ===================================================*/
+  --company-box-bg: var(--color-muted-bg);
+  --company-text: var(--color-dark-text);
+
+  /* ==================================================
+     FOOTER
+  ===================================================*/
+  --footer-bg-color: var(--color-primary);
+  --footer-text-color: var(--color-light-text);
+
+  /* ==================================================
+     STAR RATING COLORS
+  ===================================================*/
+  --star-color-full: #FFA500; /* Gold */ 
+
+  /* ==================================================
+     SOCIAL ICONS (GLOBAL)
+  ===================================================*/
+  --social-icon-color: var(--color-light-text); /* All icons use fill: currentColor */
+
+  /* ==================================================
+     FONT SIZES
+  ===================================================*/
+  --font-size-lg: 1.25rem;
+  --font-size-md: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-xs: 0.75rem;
+
+  /* ==================================================
+     BORDER RADIUS
+  ===================================================*/
+  --radius-pill: 5rem;
+  --radius-circle: 100%;
+  --radius-md: 0.5rem;
+
+  /* ==================================================
+     SPACING
+  ===================================================*/
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-hg: 4rem;
+
+}
+
+
+.main-style {
+  background-color: var(--card-bg-color);
+  margin-top: 0px;
+}
+
+#body {
+  font-family: sans-serif;
+}
+
+/* Primary background color */
+html{
+  background-color: var(--main-bg-color);
+}
+
+
+
+/* =============================================================
+   Attribution in index.html line 73 - appreciated but not required
+   -------------------------------------------------------------
+   Hidden state
+   ============================================================= */
+
+.attribution-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* =============================================================
+   Curved top divider 
+   -------------------------------------------------------------
+   With headshot/avatar in the middle
+   ============================================================= */
+
+.curve-divider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-primary);
+  line-height: 0;
+}
+
+.curve-divider svg {
+  display: block;
+  width: 100%;
+  height: 100px;
+  transform: scaleY(-1); /* Flip the curve upside down */
+  margin-bottom: -1px; /* Kills the hairline */
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--avatar-offset);
+}
+
+#profile-avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.header-curve {
+  color: var(--color-light-bg); /* ensures currentColor becomes white */
+}
+
+
+/* =============================================================
+   Curved footer divider 
+   -------------------------------------------------------------
+   Just above the footer note with website and year
+   ============================================================= */
+
+.footer-curve {
+  background: var(--main-bg-color); /* Footer background: blue */
+}
+
+.footer-curve svg {
+  transform: scale(-1, 1);         /* Flip horizontally and vertically */
+  margin-top: -1px;                 /* Fix for hairline */
+  color: var(--color-light-bg);     /* Make the SVG paths white */
+}
+
+
+/* =============================================================
+   2. Modal (QR overlay)
+   -------------------------------------------------------------
+   Hidden state, header row, and close icon
+   ============================================================= */
+
+#qr-modal-body,
+#qr-modal-qr-section { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+}
+
+#qr-code { 
+  margin: 1rem 2rem 2rem; 
+  padding: 2rem; 
+  background: var(--qr-code-bg);
+  border-radius: var(--radius-md);
+  color: var(--qr-code-color);         /* QR squares */
+}
+
+#qr-modal { 
+  position: absolute; 
+  bottom: 0; 
+  width: 100%; 
+  z-index: 1; 
+  -webkit-transition: top 0.2s ease-out, opacity 0.1s ease-out; 
+  transition: top 0.2s ease-out, opacity 0.1s ease-out; 
+  -webkit-transform: translateZ(0); 
+  transform: translateZ(0); 
+}
+
+.modal-hidden {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  background-color: var(--modal-bg-color);
+  visibility: hidden;
+  top: var(--spacing-lg);
+  opacity: 0;
+  transition: top 0.2s ease-out, opacity 0.1s ease-out;
+  transform: translateZ(0);
+}
+
+.modal-open {
+  top: 0px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.modal-closed {
+  top: 2rem !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+
+#qr-modal_header {
+  display: -webkit-box;  -webkit-box-pack: end;
+  display: -ms-flexbox;  -ms-flex-pack: end;
+  display: flex;         justify-content: flex-end;
+  margin: 1rem 1rem 0 0;
+}
+
+/* “X” icon link */
+#qr-modal-close {
+  padding: 0.75rem;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.modal-title {
+  color: var(--modal-title-color);
+  font-size: var(--modal-title-size);
+  font-weight: bold;
+  text-align: center;
+  margin: 1rem 2rem 0.5rem;
+}
+
+.modal-description {
+  color: var(--modal-description-color);
+  font-size: var(--modal-description-size);
+  text-align: center;
+  margin: 0 2rem 2rem;
+}
+
+/* =============================================================
+   3. Header (hero) & Share/QR bar
+   ============================================================= */
+
+
+#header-actions {
+  display: flex; 
+  -ms-flex-direction: row-reverse; 
+  flex-direction: row-reverse;
+  -ms-flex-pack: justify; 
+  justify-content: space-between;
+  position: absolute; 
+  top: 1rem; 
+  left: 1rem; 
+  right: 0;
+}
+
+#header-actions>div { 
+  display: flex; 
+  align-items: center; 
+}
+
+#header-actions a   { 
+  display: flex; 
+  align-items: center; 
+  padding: var(--spacing-sm); 
+  margin-right: var(--spacing-sm);
+  border-radius: 50%; 
+  cursor: pointer; 
+  line-height: 0; 
+}   
+
+.header-actions-hidden { 
+  display: none; 
+}
+
+.button-save-contact {
+  background-color: var(--save-contact-bg);
+  width: 90%; 
+  padding: 1rem 1.5rem;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: var(--radius-pill); 
+  text-decoration: none;
+}
+
+#save-contact {  
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: flex;
+  -webkit-box-pack: center; 
+  -ms-flex-pack: center; 
+  justify-content: center;
+  width: 90%;
+}
+
+
+
+/* =============================================================
+   4. Profile Card
+   -------------------------------------------------------------
+   Name, title, bio text sizes
+   ============================================================= */
+
+
+.profile-name      { 
+  font-weight: bold; 
+  font-size: var(--font-size-lg); 
+  margin: 0; 
+}
+
+.profile-job-title { 
+  font-size: var(--font-size-md); 
+  margin: 0.25rem 0; 
+}
+
+.profile-bio {
+  font-size: var(--font-size-sm);
+  white-space: pre-line;
+  line-height: 1.5;
+  margin: 0.5rem auto 1rem;
+  max-width: 90%;
+  text-align: center;
+}
+
+
+
+
+/* =============================================================
+   5. Contact Buttons
+   -------------------------------------------------------------
+   Save contact pill + call/email/WA rounds
+   ============================================================= */
+
+.button-call,
+.button-email,
+.button-whatsapp {
+  transition: transform 0.2s ease-in-out;
+}
+
+.button-call:hover,
+.button-email:hover,
+.button-whatsapp:hover {
+  transform: scale(1.1);
+}
+
+
+.button-wrapper { 
+  width: 33.33%; 
+}
+
+.button-wrapper-inner { 
+  padding: 0.5rem; 
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.button-wrapper-inner a { 
+  border-radius: var(--radius-circle); 
+  padding: 0.75rem; 
+  line-height: 0; 
+}
+
+.button-wrapper-inner p { 
+  margin: 0.5rem 0 0; 
+  font-size: var(--font-size-sm); 
+}
+
+.button-icon-wrapper { 
+width: 1.5rem; 
+height: 1.5rem; 
+color: var(--contact-button-icon); 
+}
+
+.save-contact-icon { 
+  width: 1.5rem; 
+  height: 1.5rem; 
+  padding-right: 0.25rem; 
+  color: var(--contact-button-icon); 
+}
+
+.icon-svg {              /* stroke-based icons */
+  width: 24px; 
+  height: 24px;
+  fill: none; 
+  stroke: var(--header-icon-stroke); 
+  stroke-width: 2;
+  stroke-linecap: round; 
+  stroke-linejoin: round;
+}
+
+.icon-svg-whatsapp {     /* filled glyph variant */
+  width: 24px; 
+  height: 24px; 
+  fill: var(--header-icon-stroke);
+  display: block; 
+  margin: auto;
+  transform: scale(1.15); 
+  transform-origin: center;
+}
+
+.icon-svg-share {              /* stroke-based icons */
+  width: 30px; 
+  height: 30px;
+  fill: none; 
+  stroke: var(--header-icon-stroke); 
+  stroke-width: 2;
+  stroke-linecap: round; 
+  stroke-linejoin: round;
+}
+
+.icon-svg-qr {              /* stroke-based icons */
+  width: 30px; 
+  height: 30px;
+  fill: none; 
+  stroke: var(--header-icon-stroke); 
+  stroke-width: 2;
+  stroke-linecap: round; 
+  stroke-linejoin: round;
+}
+
+.icon-svg-close {              /* stroke-based icons */
+  width: 30px; 
+  height: 30px;
+  fill: none; 
+  stroke: var(--modal-close-icon);
+  stroke-width: 2;
+  stroke-linecap: round; 
+  stroke-linejoin: round;
+}
+
+
+/* Hide symbols section */
+.symbol-defs {
+  display: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+.contact-actions {
+  margin-top: 2rem;
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: flex;
+  -ms-flex-wrap: wrap; 
+  flex-wrap: wrap;
+  -webkit-box-pack: center; 
+  -ms-flex-pack: center; 
+  justify-content: center;
+}
+
+.button-call {
+  background-color: var(--contact-button-bg);
+  border-radius: var(--radius-circle);
+  padding: 0.75rem;
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.button-email {
+  background-color: var(--contact-button-bg);
+  border-radius: var(--radius-circle);
+  padding: 0.75rem;
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.button-whatsapp {
+  background-color: var(--contact-button-bg);
+  border-radius: var(--radius-circle);
+  padding: 0.75rem;
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
+}
+
+
+.button-text-color { 
+  color: var(--save-contact-text); 
+}
+
+/* =============================================================
+   Social Profile Icons Section
+   -------------------------------------------------------------
+   Two circular icons below contact buttons
+   ============================================================= */
+
+.social-section {
+  text-align: center;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-lg);
+  background-color: var(--card-bg-color);
+  border-top: 1px solid var(--color-muted-bg); /* Thin line divider */
+  margin-top: var(--spacing-lg); /* Space above the section */
+}
+
+
+.social-section-heading {
+  font-size: var(--font-size-sm);
+  color: var(--card-text-color);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+}
+
+   
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-circle);
+  color: var(--social-icon-color); /* From root: white by default */
+  transition: transform 0.2s ease;
+}
+
+.social-links a:hover {
+  transform: scale(1.1);
+}
+
+.social-links svg {
+  width: 28px;
+  height: 28px;
+  fill: currentColor; /* Inherit from parent <a> */
+}
+
+/* Brand Background Colors */
+.social-links a.facebook   { background-color: #0866FF; }
+.social-links a.twitter    { background-color: #000000; }
+.social-links a.instagram  { background-color: #FF0069; }
+.social-links a.discord    { background-color: #5865F2; }
+.social-links a.linkedin   { background-color: #0077B5; }
+.social-links a.pinterest  { background-color: #BD081C; }
+.social-links a.youtube    { background-color: #FF0000; }
+.social-links a.tiktok     { background-color: #000000; }
+.social-links a.nextdoor   { background-color: #87c34b; }
+
+
+/* =============================================================
+   6. Re-usable Text Helpers
+   ============================================================= */
+
+
+.text {
+  text-align: center;
+  line-height: 1.5;
+  color: var(--color-text) !important;
+}
+
+
+/* =============================================================
+   7. Company Section
+   -------------------------------------------------------------
+   Description card + review styles
+   ============================================================= */
+
+.company-description { 
+  font-size: var(--font-size-md); 
+  line-height: 1.5; 
+  white-space: pre-line; 
+  margin: 1rem; 
+}
+
+.company-info { 
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  margin-bottom: 2rem;
+}
+
+.company-info-content { 
+  overflow: hidden; 
+  border-radius: var(--radius-md); 
+}
+
+.company-info-background { 
+  background-color: var(--company-box-bg); 
+}
+
+.company-info-rating { 
+  margin-top: 5px; 
+}
+
+.company-info-reviews { 
+  font-size: 12px; 
+  text-align: center; 
+  padding: 10px; 
+}
+
+
+/* ==================================================
+   STAR RATING COLORS – Used in dynamic opacity stars
+================================================== */
+
+
+/* Unified class for all stars */
+.star-dynamic {
+  color: var(--star-color-full);
+  font-size: 1.2rem; /* optional */
+}
+
+/* Opacity tiers (adjust as needed) */
+.opacity-100 { opacity: 1; }
+.opacity-90  { opacity: 0.9; }
+.opacity-80  { opacity: 0.8; }
+.opacity-70  { opacity: 0.7; }
+.opacity-60  { opacity: 0.6; }
+.opacity-50  { opacity: 0.5; }
+.opacity-40  { opacity: 0.4; }
+.opacity-30  { opacity: 0.3; }
+.opacity-20  { opacity: 0.2; }
+.opacity-10  { opacity: 0.1; }
+.opacity-0   { opacity: 0; }
+        /* Empty star (gray) */
+
+
+
+/* =============================================================
+   8. Layout Containers (header, main, profile, etc.)
+   ============================================================= */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem 3rem;
+ 
+  box-sizing: border-box;
+  padding-bottom: 0;
+  padding-bottom: 0
+}
+
+.header-cover { 
+  display: grid; 
+  height: 100%; 
+  overflow: hidden; 
+}
+
+#header-cover-image { 
+  position: relative; 
+  z-index: -1; 
+  grid-column: 1; 
+  grid-row: 1; 
+  width: 100%; 
+  height: 20rem; 
+  object-position: top center; 
+  object-fit: cover; 
+}
+
+main { 
+  padding: 1rem; 
+}
+
+#profile { 
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+}
+
+#profile img { 
+  /* duplicate sizing kept intact */
+  width: 10rem; 
+  height: 10rem; 
+  margin-top: -6rem; 
+  border-radius: 50%; 
+  text-align: center; 
+  object-fit: cover; 
+  pointer-events: none; 
+  user-select: none; 
+}
+
+#profile-info { 
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  margin-top: 1rem; 
+  line-height: 1.25; 
+  word-break: break-word; 
+}
+
+a { 
+  text-decoration: none; 
+  user-select: none; 
+}
+
+#vcf-save-contact { 
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  border-radius: var(--radius-pill); 
+  margin-bottom: 1.5rem; 
+  padding: 0.75rem 1.5rem; 
+  cursor: pointer; 
+  line-height: 0; 
+}
+
+#vcf-save-contact .icon { 
+  margin-right: 0.5rem; 
+}
+
+#vcf-save-contact p { 
+  margin: 0; 
+}
+
+
+
+
+/* =============================================================
+   9. Footer
+   ============================================================= */
+
+
+footer { 
+  padding: 2.5rem 1.5rem 2rem; 
+  font-size: var(--font-size-xs); 
+  
+}
+
+footer a { 
+  text-decoration: none; 
+  color: inherit; 
+}
+
+.site-footer { 
+  background-color: var(--footer-bg-color);
+  color: var(--footer-text-color) !important;
+  text-align: center; 
+  
+}
+
+.footer-link {
+  font-size: var(--font-size-xs);
+  color: var(--footer-text-color);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.footer-tagline {
+  font-size: var(--font-size-xs);
+  color: var(--footer-text-color);
+  text-align: center;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+/* =============================================================
+   10. Utility helpers
+   ============================================================= */
+
+.profile-address { 
+  font-size: 0.8rem; 
+  opacity: 0.6; 
+  margin-top: 0.5rem !important; 
+}
+
+body { 
+  margin: 0 auto;
+  width: 100%; 
+  max-width: 30rem; 
+  padding: 0; 
+  color: var(--color-white); 
+  position: relative; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
