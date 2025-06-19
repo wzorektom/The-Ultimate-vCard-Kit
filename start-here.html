@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit Instructions - Digital vCard</title>
   <style>
     body {
@@ -56,274 +56,523 @@
 
 <h1>How to Edit and Deploy Your Digital vCard</h1>
 
-<p>This guide explains how to personalize your vCard using the provided <code>vcard</code> folder template. You'll edit the content, update meta tags, and upload everything to your hosting platform.</p>
+<p>This guide explains how to personalise your vCard using the provided <code>vcard</code> folder template. You'll edit the content, update meta tags, replace images, and upload the finished site to your hosting platform.</p>
+
+<h2>Need Help?</h2>
+<p>
+  This digital vCard has been carefully designed to be easy to edit, fully self-contained, and free from complicated frameworks or third-party dependencies.  
+  Every effort has been made to ensure that even non-technical users can customise it with minimal effort.  
+  <br><br>
+  However, if you ever need assistance, want to add advanced functionality, or prefer a fully customised version tailored to your brand, feel free to reach out:
+</p>
+<ul>
+  <li><strong>Name:</strong> Tomasz Wzorek</li>
+  <li><strong>Website:</strong> <a href="https://pixelpeakstudio.co.uk" target="_blank">Pixel Peak Studio</a></li>
+  <li><strong>Email:</strong> <a href="mailto:thomas@pixelpeakstudio.co.uk">thomas@pixelpeakstudio.co.uk</a></li>
+  <li><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=61575377696995" target="_blank">@pixelpeakstudio</a></li>
+</ul>
 
 <h2>1. Folder Structure</h2>
-<p>The folder you received is named <code>vcard</code>. All paths inside the code are already configured to work with this folder name, so <strong>you do not need to rename it</strong>.</p>
+<p>The folder you received is named <code>vcard</code>. All file paths are configured to work with this folder name. <strong>Do not rename it</strong> unless you also update all references in <code>index.html</code> and <code>vcard.bundle.js</code>.</p>
 
 <h2>2. Files Overview</h2>
 <ul>
-  <li><strong>index.html</strong> - Page structure and metadata</li>
-  <li><strong>vcard.bundle.js</strong> - Main configuration file (update <code>cardData</code>)</li>
-  <li><strong>styles/style.min.css</strong> - Styling and layout</li>
-  <li><strong>scripts/qrcode.min.js</strong> - QR code generation</li>
-  <li><strong>images/</strong> - Profile, cover, and sharing images (must stay named the same unless paths are updated)</li>
-  <li><strong>assets/</strong> - PSD templates to help recreate images in the correct size and format (PNG)</li>
+  <li><strong>index.html</strong> - Page structure and metadata for browsers and social media</li>
+  <li><strong>vcard.bundle.js</strong> - Configuration object where all your profile info is stored</li>
+  <li><strong>styles/style.css</strong> - Complete styling using modular CSS variables</li>
+  <li><strong>scripts/qrcode.min.js</strong> - QR code generator (do not modify)</li>
+  <li><strong>images/</strong> - Contains your profile photo, banner, and social preview images</li>
+  <li><strong>assets/</strong> - Optional PSD templates to recreate your images to correct size</li>
 </ul>
 
 <div class="tip">
-  <strong>Important:</strong> If you replace image files in <code>images/</code>, use the same filenames and dimensions (e.g. <code>headshoot-300x300.png</code>). If you use different names, you must update the paths in both <code>index.html</code> and <code>vcard.bundle.js</code>.
+  <strong>Important:</strong> If you change image filenames, you must update the paths in both <code>vcard.bundle.js</code> and <code>index.html</code>. Make sure to save .png images in the same dimensions as provided in the name of the file.
 </div>
 
 <h2>3. What to Edit</h2>
+
 <h3>In <code>vcard.bundle.js</code>:</h3>
-<p>Locate the <code>cardData</code> object. Customize your information such as name, title, contact info, bio, company details, social links, and image filenames (inside <code>images/</code>).</p>
+<p>Open this file and locate the <code>cardData</code> object at the top. Every visual element (name, phone, links, etc.) is configured here. You only need to change the text inside quotation marks. Do not remove keys or curly brackets.</p>
 
 <h3>In <code>index.html</code>:</h3>
-<p>Edit these specific lines to personalize your metadata, favicon, and social sharing:</p>
+<p>
+  In <code>index.html</code>:  
+  Update your SEO and social preview metadata inside the <code>&lt;head&gt;</code> tag. Be sure to update your domain, your full name (first and last), and make sure all paths to preview images are correct.  
+</p>
+
+<p>
+  These image paths are used by platforms like <strong>WhatsApp, Facebook, Twitter (X), LinkedIn, and Messenger</strong> when someone shares your digital business card link.  
+  If the image URLs are properly set and point to live, publicly accessible files, these platforms will automatically pull the correct preview image when generating link cards.
+</p>
+
+<div class="tip">
+  <strong>Tip:</strong> You can test how your link will look when shared using tools like:
+  <ul>
+    <li><a href="https://developers.facebook.com/tools/debug/" target="_blank">Facebook Sharing Debugger</a></li>
+    <li><a href="https://www.linkedin.com/post-inspector/" target="_blank">LinkedIn Post Inspector</a></li>
+    <li><strong>Twitter (X):</strong> Simply paste the link into a tweet and post it - Twitter will automatically generate a preview card if your meta tags are correct.</li>
+  </ul>
+  If your image doesn't show up as expected, double-check the full path and clear the platform's cache using these tools (or repost the link).
+  <br><br>
+  <strong>⚠ Facebook Warning:</strong> When using the Facebook debugger, you might see this message:<br>
+  <em><strong>“Warnings That Should Be Fixed: The following required properties are missing: fb:app_id”</strong></em><br>
+  This is not critical - your card preview will still work. It simply means you're not using a Facebook App ID, which is only needed for advanced Facebook integrations (e.g. login, insights). For a static vCard, this can be ignored.
+</div>
+
+
 <pre><code>
-&lt;meta name="author" content="John Smith"&gt;
-&lt;meta name="description" content="The digital business card of John Smith - ready to save, share, and connect."&gt;
-&lt;title&gt;John Smith Digital Business Card&lt;/title&gt;
-&lt;meta name="robots" content="noindex, nofollow"&gt; &lt;!-- Optional: remove this if you want it indexed --&gt;
+&lt;meta name="author" content="Your Name"&gt;
+&lt;meta name="description" content="Brief intro about your service."&gt;
+&lt;title&gt;Your Name Digital Business Card&lt;/title&gt;
 
-&lt;link rel="icon" href="https://yourdomain.com/vcard/images/favi-100x100.png"&gt;
-&lt;link rel="apple-touch-icon" sizes="128x128" href="https://yourdomain.com/vcard/images/bookmark-128x128.png"&gt;
+&lt;link rel="icon" href="https://yourdomain.com/vcard/images/favi-100x100.png" &gt;
+&lt;link rel="apple-touch-icon" sizes="128x128" href="https://yourdomain.com/vcard/images/bookmark-128x128.png" &gt;
 
-&lt;meta property="og:type" content="website"&gt;
-&lt;meta property="og:title" content="John Smith Digital Business Card"&gt;
-&lt;meta property="og:description" content="The digital business card of John Smith - ready to save, share, and connect."&gt;
+&lt;meta property="og:title" content="Your Name Digital Business Card"&gt;
+&lt;meta property="og:description" content="The digital business card of Your Name - ready to save, share, and connect."&gt;
 &lt;meta property="og:image" content="https://yourdomain.com/vcard/images/share-1200x630.png"&gt;
-&lt;meta property="og:image:width" content="1200"&gt;
-&lt;meta property="og:image:height" content="630"&gt;
 &lt;meta property="og:url" content="https://yourdomain.com/vcard/"&gt;
 
-&lt;meta name="twitter:card" content="summary_large_image"&gt;
-&lt;meta name="twitter:title" content="John Smith Digital Business Card"&gt;
-&lt;meta name="twitter:description" content="The digital business card of John Smith - ready to save, share, and connect."&gt;
+&lt;meta name="twitter:title" content="Your Name Digital Business Card"&gt;
+&lt;meta name="twitter:description" content="The digital business card of Your Name - ready to save, share, and connect."&gt;
 &lt;meta name="twitter:image" content="https://yourdomain.com/vcard/images/share-1200x630.png"&gt;
 &lt;meta name="twitter:url" content="https://yourdomain.com/vcard/"&gt;
 </code></pre>
 
-<h2>3.5 Preview and Customize Locally (Recommended)</h2>
-<p>
-Before going live, it's a good idea to test and customize your digital vCard in a safe local environment. We recommend downloading and installing <strong><a href="https://localwp.com/" target="_blank" rel="noopener noreferrer">LocalWP</a></strong> - a free and beginner-friendly app that lets you run a local WordPress server on your computer.
-</p>
-
-<p>
-Even though this project doesn't require WordPress to work, LocalWP is perfect for viewing and editing static HTML files in a controlled browser environment.
-</p>
-
-<h3>Steps:</h3>
-<ol>
-  <li>Download and install LocalWP from <a href="https://localwp.com/" target="_blank" rel="noopener noreferrer">https://localwp.com</a></li>
-  <li>Create a new "Custom" site (you can skip WordPress installation options)</li>
-  <li>Open the site folder created by LocalWP on your computer</li>
-  <li>Copy your <code>vcard</code> folder into \app\public directory</li>
-  <li>Enable SSL</li>
-  <li>In your browser navigate to https://yourwebsite/vcard/index.html</li>
-</ol>
-
 <div class="tip">
-  <strong>Why use LocalWP?</strong><br>
-  It ensures that links, scripts, and QR code previews work correctly in a browser environment, before you upload to your live server. It's also safer and faster than uploading with every small edit.
+  <strong>Tip for Multi-User Setups:</strong><br>
+  If you plan to use this vCard for multiple users on the same domain (e.g. team members, staff, or clients), it's a good idea to place each user's vCard in their own folder.  
+  <br><br>
+  For example, instead of referencing image paths like:<br>
+  <code>https://yourdomain.com/vcard/images/share-1200x630.png</code><br>
+  you could organize users like this:<br>
+  <code>https://yourdomain.com/john-smith/vcard/images/share-1200x630.png</code><br><br>
+  Just make sure to update all paths in both <code>index.html</code> and <code>vcard.bundle.js</code> to reflect the new structure for each user.
 </div>
 
+<h2>3.5 Preview and customise Locally (Recommended)</h2>
+
+<p>To properly preview the QR code, star ratings, and contact buttons, use a local web server. We recommend:</p>
+<ul>
+  <li><strong><a href="https://localwp.com" target="_blank">LocalWP</a></strong> (Beginner-friendly)</li>
+  <li><strong>Live Server extension</strong> in Visual Studio Code</li>
+</ul>
+
+<p>Once set up, place the <code>vcard</code> folder inside your site's <code>/public</code> or <code>/app</code> directory. Visit:</p>
+<pre><code>https://yourlocal.site/vcard/index.html</code></pre>
 
 <h2>4. Deploy Your vCard</h2>
 <ol>
-  <li>Replace image files in the <code>images/</code> folder (optional, must match dimensions and names).</li>
-  <li>Edit <code>vcard.bundle.js</code> to update the content.</li>
-  <li>Edit <code>index.html</code> to update meta tags and image URLs.</li>
-  <li>Upload the entire <code>vcard</code> folder to your host public_html directory (e.g. WordPress/cPanel/Netlify).</li>
-  <li>Visit your URL: <code>https://yourdomain.com/vcard/index.html</code></li>
+  <li>Replace image files in the <code>images/</code> folder making sure the dimensions are the same</li>
+  <li>Update <code>vcard.bundle.js</code> with your real data</li>
+  <li>Edit <code>index.html</code> to update metadata and preview images</li>
+  <li>Upload the entire <code>vcard</code> folder to your <strong>public_html</strong> or root folder on any other hosting</li>
+  <li>Access it at: <code>https://yourdomain.com/vcard/index.html</code></li>
 </ol>
 
+<div class="tip">
+  <strong>Tip: Changes Not Showing Up?</strong><br>
+  If you've uploaded your vCard to a live server and made edits (like replacing images, updating text, or modifying code) but don't see the changes, it's likely due to caching.  
+  <br><br>
+  ✅ You should clear the following caches:
+  <ul>
+    <li><strong>Browser cache:</strong> Hard refresh (Ctrl+F5 or Cmd+Shift+R), or clear cached files manually</li>
+    <li><strong>WordPress cache plugins:</strong> e.g. WP Rocket, W3 Total Cache, LiteSpeed Cache</li>
+    <li><strong>Cloud services:</strong> If you're using Cloudflare, Cloudways, or similar - log in and purge the cache</li>
+    <li><strong>Server-level cache:</strong> Some hosts (like SiteGround or Kinsta) offer built-in caching that also needs to be cleared</li>
+  </ul>
+  <p>Changes won't reliably show up for you (or your visitors) until all layers of caching are cleared.</p>
+</div>
+
+
 <h2>5. Enable SEO (Optional)</h2>
-<p>This tag tells search engines not to index this page or follow its links.
-  Important: It is only a *request*, not a guarantee.
-  Some bots may still index the page despite this.</p>
-<p>If you want your vCard to appear in search engine results (like Google), you'll need to remove or comment out the following line in <code>index.html</code>:</p>
-<pre><code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code></pre>
+<p>Your site includes this line by default:</p>
+<pre><code>&lt;meta name=\"robots\" content=\"noindex, nofollow\"&gt;</code></pre>
+<p>This tells Google and other search engines not to index the page. Remove it (or comment it out) if you want your page to be listed publicly.</p>
+
+<div class="tip">
+  <strong>Important:</strong> The <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code> tag is only a <em>request</em> to search engines.  
+  While most major crawlers like Google, Bing, and Yahoo will respect it, some bots (especially aggressive or third-party ones) may still index or archive your page anyway.  
+  <br><br>
+  ⚠️ If you want stronger protection, consider adding password protection at the server level or using proper HTTP authentication. However, for general SEO control, removing or commenting out this meta tag is usually enough to allow indexing by Google and other mainstream search engines.
+</div>
+
 
 <h2>Need Help?</h2>
-<p>This kit was designed to be self-contained and editable without dependencies. If you need help or want custom modifications, feel free to reach out to the creator.</p>
-
-
-
-<h1>How to Customize <code>cardData</code> - Your Digital Business Card</h1>
-
-<p>The <code>cardData</code> object is where you define all the content and links for your vCard. You'll find it inside the <code>vcard.bundle.js</code> file. Only edit the values (text between quotation marks), never delete or rename keys.</p>
-
-<h2>📄 Required File</h2>
-<p><strong>File:</strong> <code>vcard.bundle.js</code><br>
-<strong>Location:</strong> In the main <code>vcard</code> folder</p>
-
-<h2>🧾 Structure</h2>
-<p>The <code>cardData</code> object controls everything you see on the card:</p>
-
-<table>
-  <thead><tr><th>Property</th><th>What It Does</th></tr></thead>
-  <tbody>
-    <tr><td><code>fullName</code></td><td>Your full name (title + vCard)</td></tr>
-    <tr><td><code>jobTitle</code></td><td>Job/role below your name</td></tr>
-    <tr><td><code>company</code></td><td>Company name</td></tr>
-    <tr><td><code>birthday</code></td><td>Birthday in YYYYMMDD format (optional)</td></tr>
-    <tr><td><code>email</code></td><td>Email used in mail link + vCard</td></tr>
-    <tr><td><code>telNumber</code></td><td>Phone number for call + vCard</td></tr>
-    <tr><td><code>whatsappNumber</code></td><td>WhatsApp link via <code>wa.me</code></td></tr>
-    <tr><td><code>websiteUrl</code></td><td>Personal or business website</td></tr>
-    <tr><td><code>address</code></td><td>Full address (visible + in vCard)</td></tr>
-    <tr><td><code>bio</code></td><td>Short summary shown near your avatar</td></tr>
-    <tr><td><code>companyDescription</code></td><td>Longer description shown below</td></tr>
-    <tr><td><code>socialProfiles</code></td><td>List of social links (type + url)</td></tr>
-    <tr><td><code>reviewLinkText</code></td><td>Text of Google review link</td></tr>
-    <tr><td><code>googleBusinessProfile</code></td><td>Link to your Google Business</td></tr>
-    <tr><td><code>ratingValue</code></td><td>Rating number for review stars</td></tr>
-    <tr><td><code>qrHeading</code></td><td>Heading in QR modal</td></tr>
-    <tr><td><code>qrDescription</code></td><td>Description below QR modal heading</td></tr>
-    <tr><td><code>footerCompanyUrl</code></td><td>Footer company link URL</td></tr>
-    <tr><td><code>footerCompanyName</code></td><td>Text of footer link</td></tr>
-    <tr><td><code>shareTitle</code></td><td>Used for mobile/web share title</td></tr>
-    <tr><td><code>shareText</code></td><td>Used for share message text</td></tr>
-  </tbody>
-</table>
-
-<h2>🖼️ Images</h2>
-<table>
-  <thead><tr><th>Field</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>profileImage</code></td>
-      <td>
-        Circular avatar image. Recommended size: <strong>300x300px PNG</strong>.<br>
-        💡 PSD template available in the <code>assets/</code> folder.
-      </td>
-    </tr>
-    <tr>
-      <td><code>coverImage</code></td>
-      <td>
-        Top banner image. Recommended size: <strong>960x640px PNG</strong>.<br>
-        💡 PSD template available in the <code>assets/</code> folder.
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Images should be stored in the <code>images/</code> folder. You can use a full URL (e.g., hosted on your site), or a relative path like <code>images/headshoot-300x300.png</code>.</p>
-
-<h2>📎 Notes</h2>
+<p>
+  This digital vCard has been carefully designed to be easy to edit, fully self-contained, and free from complicated frameworks or third-party dependencies.  
+  Every effort has been made to ensure that even non-technical users can customise it with minimal effort.  
+  <br><br>
+  However, if you ever need assistance, want to add advanced functionality, or prefer a fully customised version tailored to your brand, feel free to reach out:
+</p>
 <ul>
-  <li>Leave unused fields blank (<code>""</code>)</li>
-  <li>Never delete keys or properties from <code>cardData</code></li>
-  <li>This data powers all live text, meta fields, links, and your downloadable <code>.vcf</code></li>
+  <li><strong>Name:</strong> Tomasz Wzorek</li>
+  <li><strong>Website:</strong> <a href="https://pixelpeakstudio.co.uk" target="_blank">Pixel Peak Studio</a></li>
+  <li><strong>Email:</strong> <a href="mailto:thomas@pixelpeakstudio.co.uk">thomas@pixelpeakstudio.co.uk</a></li>
+  <li><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=61575377696995" target="_blank">@pixelpeakstudio</a></li>
 </ul>
 
 
-<h1>Styling Guide for Digital vCard</h1>
-<p>This guide explains how the styling system works across your digital business card. It uses a modular, variable-driven CSS structure for easy customization. Each section below matches your actual class names and describes their function and design behavior.</p>
+<h1>How to customise <code>cardData</code></h1>
+<p>This is your central configuration object inside <code>vcard.bundle.js</code>. Each property corresponds to part of your digital card and vCard file.</p>
 
-<div class="section">
-  <h2>1. Global & Base Styling</h2>
-  <ul>
-    <li><code>:root</code> - Declares all CSS variables used across the project (colors, font sizes, spacing, etc.).</li>
-    <li><code>html</code> - Applies the main background color via <code>--main-bg-color</code>.</li>
-    <li><code>body</code> - Centers the card layout and sets base font color.</li>
-    <li><code>#body</code> - Applies the base sans-serif font family.</li>
-    <li><code>.main-style</code> - White card background via <code>--card-bg-color</code>.</li>
-  </ul>
-</div>
+<h2>Common Fields</h2>
+<table>
+  <tr><th>Field</th><th>Description</th></tr>
+  <tr><td><code>fullName</code></td><td>Your full name (visible + vCard)</td></tr>
+  <tr><td><code>jobTitle</code></td><td>Appears under your name</td></tr>
+  <tr><td><code>company</code></td><td>Your business or brand</td></tr>
+  <tr><td><code>birthday</code></td><td>Your birth day</td></tr>
+  <tr><td><code>email</code></td><td>Email contact link + vCard</td></tr>
+  <tr><td><code>telNumber</code></td><td>Phone number (used in call button)</td></tr>
+  <tr><td><code>whatsappNumber</code></td><td>Used in WhatsApp button</td></tr>
+  <tr><td><code>websiteUrl</code></td><td>Your website URL</td></tr>
+  <tr><td><code>address</code></td><td>Visible on card + saved in vCard</td></tr>
+  <tr><td><code>bio</code></td><td>Short 1-line intro text</td></tr>
+  <tr><td><code>companyDescription</code></td><td>Longer blurb in company box</td></tr>
+</table>
 
-<div class="section">
-  <h2>2. Modal (QR Code Overlay)</h2>
-  <ul>
-    <li><code>#qr-modal</code> - Modal container with show/hide transitions.</li>
-    <li><code>.modal-hidden</code>, <code>.modal-open</code>, <code>.modal-closed</code> - Visibility states toggled via JavaScript.</li>
-    <li><code>#qr-modal_header</code> - Flex row holding the close button.</li>
-    <li><code>#qr-modal-close</code> - Clickable close icon button.</li>
-    <li><code>.modal-title</code> and <code>.modal-description</code> - Centered modal texts styled using modal color variables.</li>
-    <li><code>#qr-code</code> - QR box with background and rounded corners.</li>
-  </ul>
-</div>
+<h2>Images</h2>
+<p>Just update your images making sure the file name remains the same:</p>
+<pre><code>
+profileImage: "images/headshoot-300x300.png"
+coverImage: "images/cover-960x640.png"
+</code></pre>
 
-<div class="section">
-  <h2>3. Header & Action Icons</h2>
-  <ul>
-    <li><code>header</code> - Wraps the header area and allows icon positioning.</li>
-    <li><code>.header-cover</code> - Grid layout for responsive cover image.</li>
-    <li><code>#header-cover-image</code> - Full-width banner image with top-center crop.</li>
-    <li><code>#header-actions</code> - Sticky top-right icon bar.</li>
-    <li><code>.icon-svg</code>, <code>.icon-svg-share</code>, <code>.icon-svg-qr</code>, <code>.icon-svg-close</code> - Standard icons using stroke.</li>
-    <li><code>.icon-svg-whatsapp</code> - Filled WhatsApp icon with scale effect.</li>
-  </ul>
-</div>
+<h2>Social Profiles</h2>
 
-<div class="section">
-  <h2>4. Profile Section</h2>
-  <ul>
-    <li><code>#profile</code> - Flex column layout for image + info.</li>
-    <li><code>#profile img</code> - Circular profile photo with fixed size.</li>
-    <li><code>#profile-info</code> - Holds name, title, and address.</li>
-    <li><code>.profile-name</code> - Large bold name text.</li>
-    <li><code>.profile-job-title</code> - Job role text just below the name.</li>
-    <li><code>.profile-bio</code> - Paragraph for personal/brand tagline.</li>
-    <li><code>.profile-address</code> - Faded address styling with small font.</li>
-  </ul>
-</div>
+<p>Your social media links are configured inside the <code>cardData</code> object in <code>vcard.bundle.js</code>. Each profile is defined with a <code>type</code> and a <code>url</code> in the <code>socialProfiles</code> array. You can easily add, remove, or comment out profiles based on what you want to display.</p>
 
-<div class="section">
-  <h2>5. Contact Buttons</h2>
-  <ul>
-    <li><code>.contact-actions</code> - Main flex layout for buttons.</li>
-    <li><code>.button-wrapper</code>, <code>.button-wrapper-inner</code> - Per-button layout and spacing.</li>
-    <li><code>.button-call</code>, <code>.button-email</code>, <code>.button-whatsapp</code> - Circular action buttons with background color.</li>
-    <li><code>.button-icon-wrapper</code> - Sizes icons inside each button.</li>
-    <li><code>.button-text-color</code> - Sets white text using <code>--save-contact-text</code>.</li>
-    <li><code>#save-contact</code>, <code>.button-save-contact</code> - Pill-style button for saving contact.</li>
-  </ul>
-</div>
+<p>Here's what the full block looks like by default:</p>
 
-<div class="section">
-  <h2>6. Company Info & Reviews</h2>
-  <ul>
-    <li><code>.company-description</code> - Descriptive company text block.</li>
-    <li><code>.company-info-background</code> - Light gray box using <code>--company-box-bg</code>.</li>
-    <li><code>.company-info-content</code> - Rounded container for company section.</li>
-    <li><code>.company-info-stars</code>, <code>.star-full</code>, <code>.star-half</code>, <code>.star-empty</code> - Star coloring for reviews.</li>
-    <li><code>.company-info-reviews</code> - Text like “based on X reviews”.</li>
-  </ul>
-</div>
+<pre><code>numberOfIcons: 3, // Set how many social icons you want to show - 3 by default
 
-<div class="section">
-  <h2>7. Footer</h2>
-  <ul>
-    <li><code>footer</code> - Overall footer layout and spacing.</li>
-    <li><code>.site-footer</code> - Applies light background via <code>--footer-bg-color</code>.</li>
-  </ul>
-</div>
+socialProfiles: [
+  { type: "youtube", url: "https://youtube.com/yourlogin" },
+  { type: "tiktok", url: "https://tiktok.com/yourlogin" },
+  { type: "twitter", url: "https://twitter.com/yourlogin" },
+  /*
+  { type: "facebook", url: "https://facebook.com/yourlogin" },
+  { type: "instagram", url: "https://instagram.com/yourlogin" },
+  { type: "discord", url: "https://discord.com/users/yourlogin" },
+  { type: "linkedin", url: "https://linkedin.com/in/yourlogin" },
+  { type: "pinterest", url: "https://pinterest.com/yourlogin" },
+  { type: "nextdoor", url: "https://nextdoor.com/yourlogin" }
+  */
+],</code></pre>
 
-<div class="section">
-  <h2>8. Utility & Helpers</h2>
-  <ul>
-    <li><code>.text</code> - Center-aligned text block used in footers or general sections.</li>
-    <li><code>.close-btn-invert</code> - Inverts close icon color if needed.</li>
-    <li><code>.symbol-defs</code> - Hides SVG symbol block (used with <code>&lt;use&gt;</code>).</li>
-    <li><code>#vcf-save-contact</code> - Optional alternate save contact section.</li>
-  </ul>
-</div>
+<p>
+  To use a profile, simply uncomment the line by removing the <code>//</code> or removing the <code>/* ... */</code> block if it surrounds multiple lines.  
+  For example, to enable LinkedIn:
+</p>
 
+<pre><code>{ type: "linkedin", url: "https://linkedin.com/yourname" },</code></pre>
+
+<h3>How to Control How Many Icons Are Displayed</h3>
+<p>
+  The <code>numberOfIcons</code> property determines how many of your social profiles will appear visually on the card.  
+  By default, it's set to <code>3</code> - meaning only the first 3 profiles in the list will be shown, regardless of how many are defined.
+</p>
+
+<p><strong>Important:</strong> You must make sure that the number of <em>uncommented</em> profiles matches the value of <code>numberOfIcons</code>. For example, if you only enable two profiles, set:</p>
+<pre><code>numberOfIcons: 2</code></pre>
+
+<p>If you enable five profiles but leave <code>numberOfIcons</code> at <code>3</code>, only the first three will be displayed. The others will be ignored in the visible layout but still exist in the data structure (e.g. for the downloadable <code>.vcf</code> file).</p>
+
+<h3>Supported Platforms</h3>
+<p>These platforms are currently supported and have matching icons included in the template:</p>
+<ul>
+  <li><code>facebook</code></li>
+  <li><code>twitter</code></li>
+  <li><code>linkedin</code></li>
+  <li><code>youtube</code></li>
+  <li><code>instagram</code></li>
+  <li><code>tiktok</code></li>
+  <li><code>pinterest</code></li>
+  <li><code>discord</code></li>
+  <li><code>nextdoor</code></li>
+</ul>
+
+<p>Each icon is styled automatically via CSS and rendered in the correct brand color (e.g. LinkedIn = blue, Instagram = pink, etc.).</p>
+
+<h2>Review Settings</h2>
+
+<p>
+  This section controls the star rating display and the link to your public Google Business Profile (or review page). These values are configured inside the <code>cardData</code> object in <code>vcard.bundle.js</code>.
+</p>
+
+<pre><code>
+googleBusinessProfile: "https://g.page/yourbiz",
+ratingValue: "4.8",
+reviewLinkText: "Check Our Reviews on Google",
+</code></pre>
+
+<h3>How It Works</h3>
+<ul>
+  <li>
+    <strong><code>googleBusinessProfile</code></strong> — The full URL to your Google Business page or public review site.
+    This will be used as the target when a user clicks the review link on your vCard.
+  </li>
+  <li>
+    <strong><code>ratingValue</code></strong> — A numeric value from <code>0.0</code> to <code>5.0</code> (decimals required).
+    This value is used to dynamically calculate how many stars should be shown.
+    <br><br>
+    For example:
+    <ul>
+      <li><code>4.0</code> shows four solid stars</li>
+      <li><code>4.5</code> shows four full stars and one half-opacity star</li>
+      <li><code>3.3</code> results in three solid stars and two faint ones</li>
+    </ul>
+    ⚠️ Do not enter <code>4</code> (integer) — always use a decimal format like <code>4.0</code>, or the stars may not display correctly.
+  </li>
+  <li>
+    <strong><code>reviewLinkText</code></strong> — This is the clickable text that appears next to your rating (e.g. “See Our Reviews”, "Check Our Reviews on Google", “Check Google Feedback”, etc.).
+  </li>
+</ul>
+
+<p>
+  The stars are rendered automatically based on your <code>ratingValue</code> using a JavaScript function and styled with CSS opacity classes (from <code>.opacity-0</code> to <code>.opacity-100</code>). No additional icons or markup are required.
+</p>
+
+
+<h2>QR Modal</h2>
+<p>Used for the popup that shows your QR code:</p>
+<pre><code>qrHeading: \"Scan to Save\"
+qrDescription: \"Open this card on your other device.\"</code></pre>
+
+<h2>Footer Text</h2>
+
+<p>
+  These fields control the content displayed at the very bottom of your digital vCard. This section appears just above the copyright notice and is styled using the site's main footer background color.
+</p>
+
+<pre><code>
+footerTagline: "Helping You Connect Smarter",
+footerCompanyUrl: "https://yourwebsite.com",
+footerCompanyName: "Your Company Ltd",
+</code></pre>
+
+<h3>What Each Field Does:</h3>
+<ul>
+  <li>
+    <strong><code>footerTagline</code></strong> — This is a short sentence or slogan shown above your footer link.  
+    It's a great place to add a brand message, motto, or value proposition (e.g., “Your trusted local expert” or “Smart connections start here”).  
+    The text is styled subtly and displayed as a separate line above the clickable company link.
+  </li>
+  <li>
+    <strong><code>footerCompanyUrl</code></strong> — The URL that users are sent to when they click the footer company link.  
+    This can be your main business website, portfolio, or landing page.
+  </li>
+  <li>
+    <strong><code>footerCompanyName</code></strong> — This is the clickable link text that appears in the footer.  
+    It's typically your business or brand name, and it will appear as a link next to the copyright year.
+  </li>
+</ul>
+
+<h3>Example Output in the Footer:</h3>
+<p style="font-family: monospace; background: #f0f0f0; padding: 1rem;">
+Helping You Connect Smarter<br>
+<a href="https://yourwebsite.com" target="_blank">Your Company Ltd</a> | 2025
+</p>
+
+<p>
+  These values are injected dynamically via JavaScript when the page loads, so changes to <code>vcard.bundle.js</code> will reflect automatically without needing to touch the HTML.  
+  Styling is handled via the CSS class <code>.site-footer</code> and root color variables like <code>--footer-bg-color</code> and <code>--footer-text-color</code>.
+</p>
+
+
+<h2>Sharing API</h2>
+
+<p>
+  These fields control the content used by the native mobile sharing feature — activated when a visitor taps the “Share” button on your vCard.  
+  This functionality relies on the browser's built-in <code>navigator.share()</code> API, which is available in most modern mobile browsers (Chrome, Safari, Edge, and some Android apps).
+</p>
+
+<pre><code>
+shareTitle: "Jane Doe Digital Business Card",
+shareText: "You can view my Digital Business Card here:",
+</code></pre>
+
+<h3>How It Works</h3>
+<ul>
+  <li>
+    When a user taps the share icon (three connected dots), the site checks if <code>navigator.share()</code> is supported.
+    If it is, it opens the native share sheet of the device (iOS or Android), allowing the user to share the link via apps like Messages, Mail, WhatsApp, or Facebook.
+  </li>
+  <li>
+    If the browser doesn't support <code>navigator.share()</code> (e.g. older browsers or desktop), the fallback is to display the QR code modal instead, allowing the user to scan or screenshot the card link.
+  </li>
+</ul>
+
+<h3>What These Fields Control</h3>
+<ul>
+  <li>
+    <strong><code>shareTitle</code></strong> — The title shown in the mobile share dialog. Usually this is your name or a short description of the card (e.g. “Jane Doe Digital Business Card”).
+  </li>
+  <li>
+    <strong><code>shareText</code></strong> — The descriptive text shown under the title in the share prompt. This is the message someone will see before clicking the link — keep it friendly and concise.
+  </li>
+</ul>
+
+<h3>What the User Sees (Mobile Example)</h3>
+<p style="background: #f8f8f8; padding: 1rem; font-family: monospace;">
+📤 Share<br>
+Jane Doe Digital Business Card<br>
+You can view my Digital Business Card here:<br>
+https://yourdomain.com/vcard/
+</p>
 
 <div class="tip">
-  <strong>Attribution (Optional):</strong>  
-  The index.html template includes a hidden backlink to <a href="https://pixelpeakstudio.co.uk" target="_blank" rel="noopener">Pixel Peak Studio</a> inside the HTML source code.  
-  It's not visible on the page, but helps give credit to the original creator.  
-  You are free to remove it - it's entirely optional and won't affect functionality.  
-  Leaving it in is appreciated if you're happy with the template!
+  <strong>Tip:</strong> You don't need to specify the URL — it's added automatically based on the current page the user is viewing.  
+  Just make sure your <code>shareTitle</code> and <code>shareText</code> are clear and branded.
 </div>
 
+
+<h1>Styling & CSS Customization</h1>
+<h2>Color Customization</h2>
+
+<p>
+  The color system in this vCard has been designed to be easy to adjust using CSS variables.  
+  You can find all the main colors at the top of <code>style.css</code> under the <code>:root</code> selector.
+</p>
+
+<p>
+  These variables allow you to customise the branding, text, background, buttons, and modal styles in one place — without editing individual styles manually.
+</p>
+
+<h3>Main Color Variables</h3>
+<pre><code>:root {
+  --color-primary: #0a40ab;        /* Main branding color - header, buttons, footer */
+  --color-light-bg: #ffffff;       /* Light background - card content area */
+  --color-dark-text: #000000;      /* Main text color */
+  --color-light-text: #ffffff;     /* Light text - icons, buttons, footer */
+}</code></pre>
+
+<h3>Additional Theme Variables</h3>
+<ul>
+  <li><code>--footer-bg-color</code> - Footer background color</li>
+  <li><code>--company-box-bg</code> - Company info section background</li>
+  <li><code>--modal-bg-color</code> - Background for QR code modal</li>
+  <li><code>--star-color-full</code> - Color of rating stars (default: gold)</li>
+  <li><code>--qr-code-color</code> - Color of the generated QR code SVG</li>
+</ul>
+
+<div class="tip">
+  <strong>Example:</strong><br>
+  To create a minimal theme:
+  <pre><code>
+--color-primary: #111827;
+--company-box-bg: #f3f4f6;</code></pre>
+</div>
+
+<hr>
+
+<h2>Button & Icon Styling</h2>
+
+<p>
+  Each action button (Call, Email, WhatsApp, Save Contact) is styled with its own class and controlled by dedicated variables:
+</p>
+
+<ul>
+  <li><code>.button-call</code> → <code>--contact-button-bg</code></li>
+  <li><code>.button-email</code> → <code>--contact-button-bg</code></li>
+  <li><code>.button-whatsapp</code> → <code>--contact-button-bg</code></li>
+  <li><code>.button-save-contact</code> → <code>--save-contact-bg</code> and <code>--save-contact-text</code></li>
+</ul>
+
+<p>
+  The icons inside these buttons use <code>fill: currentColor</code> to inherit color from the parent container. This makes them easy to theme.
+</p>
+
+<hr>
+
+<h2>Social Media Icon Styling</h2>
+
+<p>
+  Social profile icons are styled per platform using CSS classes. Each platform gets its default brand color:
+</p>
+
+<pre><code>
+.social-links a.linkedin   { background-color: #0077b5; }
+.social-links a.facebook   { background-color: #0866FF; }
+.social-links a.youtube    { background-color: #FF0000; }</code></pre>
+
+<p>
+  You can override any of these classes to match your own brand theme. If you prefer a neutral design, set them all to a shared color like <code>#333</code>.
+</p>
+
+<div class="tip">
+  <strong>Tip:</strong> All social icons use <code>fill: currentColor</code>, so you can globally control their icon color with the root variable <code>--social-icon-color</code>.
+</div>
+
+<hr>
+
+<h2>Typography & Spacing</h2>
+
+<p>
+  Font sizes and layout spacing are controlled using CSS variables, making the card layout easily scalable:
+</p>
+
+<pre><code>
+--font-size-lg: 1.25rem;   /* Name and major headings */
+--font-size-md: 1rem;      /* Regular body text */
+--font-size-sm: 0.875rem;  /* Buttons and small labels */
+--font-size-xs: 0.75rem;   /* Footer or subtle notes */
+
+--radius-pill: 5rem;       /* Save Contact button */
+--radius-circle: 100%;     /* Circular buttons and avatars */
+
+--spacing-sm: 0.5rem;
+--spacing-md: 1rem;
+--spacing-lg: 2rem;
+--spacing-hg: 4rem;
+</code></pre>
+
+<p>
+  These variables ensure consistent spacing and sizing across all components. You can easily adjust them to make the layout feel more compact or more spacious.
+</p>
+
+
+<h2>Need Help?</h2>
+<p>
+  This digital vCard has been carefully designed to be easy to edit, fully self-contained, and free from complicated frameworks or third-party dependencies.  
+  Every effort has been made to ensure that even non-technical users can customise it with minimal effort.  
+  <br><br>
+  However, if you ever need assistance, want to add advanced functionality, or prefer a fully customised version tailored to your brand, feel free to reach out:
+</p>
+<ul>
+  <li><strong>Name:</strong> Tomasz Wzorek</li>
+  <li><strong>Website:</strong> <a href="https://pixelpeakstudio.co.uk" target="_blank">Pixel Peak Studio</a></li>
+  <li><strong>Email:</strong> <a href="mailto:thomas@pixelpeakstudio.co.uk">thomas@pixelpeakstudio.co.uk</a></li>
+  <li><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=61575377696995" target="_blank">@pixelpeakstudio</a></li>
+</ul>
+
 <footer>
-  Designed and developed by <a href="https://pixelpeakstudio.co.uk" target="_blank" rel="noopener noreferrer">Pixel Peak Studio</a>
+  <p>
+    <strong>Copyright © 2025 
+      <a href="https://www.facebook.com/profile.php?id=61575377696995" target="_blank" rel="noopener noreferrer">
+        Tomasz Wzorek
+      </a> / 
+      <a href="https://pixelpeakstudio.co.uk" target="_blank" rel="noopener noreferrer">
+        Pixel Peak Studio
+      </a>
+    </strong>
+    <br>
+    This product is licensed for personal and commercial use by the original purchaser only.
+  </p>
+  <p>
+    <strong>You may:</strong> Use, modify, and deploy this vCard on unlimited personal or client sites.<br>
+    <strong>You may not:</strong> Resell, redistribute, or claim this template as your own.
+  </p>
+  <p>
+    Attribution is appreciated but not required.<br>
+    For support or custom work, visit: 
+    <a href="https://pixelpeakstudio.co.uk" target="_blank" rel="noopener noreferrer">
+      pixelpeakstudio.co.uk
+    </a>
+  </p>
 </footer>
+
 
 </body>
 </html>

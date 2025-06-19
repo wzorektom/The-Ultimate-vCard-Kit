@@ -104,7 +104,7 @@ const cardData = {
 
   // === Reviews Section ===
   reviewLinkText: "Check Our Reviews on Google",                            // Text shown as the link to your reviews
-  googleBusinessProfile: "https://MyGoogleBusinessProfile",                 // Link to your Google Business Profile
+  googleBusinessProfile: "https://g.page/yourbiz",                 // Link to your Google Business Profile or any other business profile
   ratingValue: "4.5",                                                       // Numeric rating value (Automatically adjusts the stars)
 
   // === QR Modal Content ===
