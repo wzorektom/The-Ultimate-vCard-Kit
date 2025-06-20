@@ -69,9 +69,9 @@ const cardData = {
 
   // === Contact Information ===
   email: "mirasolensen@mycompany.com",           // Email address (mailto: link + vCard)
-  telNumber: "+440000000000",            // Telephone number (tel: link + vCard) e.g. +44 (0) 1234 567 890
-  officeNumber: "+440000000000",          // Office/Landline
-  whatsappNumber: "+440000000000",       // WhatsApp number (used in wa.me link)
+  telNumber: "+440000000001",            // Telephone number (tel: link + vCard) e.g. +44 (0) 1234 567 890
+  officeNumber: "+440000000002",          // Office/Landline
+  whatsappNumber: "+440000000001",       // WhatsApp number (used in wa.me link)
   websiteUrl: "https://mycompany.com",   // Optional personal/business website
 
 
