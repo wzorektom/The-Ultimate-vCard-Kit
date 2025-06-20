@@ -70,6 +70,7 @@ const cardData = {
   // === Contact Information ===
   email: "mirasolensen@mycompany.com",           // Email address (mailto: link + vCard)
   telNumber: "+440000000000",            // Telephone number (tel: link + vCard) e.g. +44 (0) 1234 567 890
+  officeNumber: "+440000000000",          // Office/Landline
   whatsappNumber: "+440000000000",       // WhatsApp number (used in wa.me link)
   websiteUrl: "https://mycompany.com",   // Optional personal/business website
 
@@ -245,7 +246,7 @@ function injectCardData() {
 
   // Create clickable contact actions
   const whatsappLink = document.getElementById("whatsapp-link");
-  if (whatsappLink) whatsappLink.href = `https://wa.me/${sanitizePhone(cardData.whatsappNumber)}`;
+  if (whatsappLink) whatsappLink.href = `https://wa.me/${sanitizePhone(cardData.whatsappNumber).replace(/\D/g, "")}`;
 
   const callLink = document.getElementById("call-link");
   if (callLink) callLink.href = `tel:${sanitizePhone(cardData.telNumber)}`;
@@ -273,7 +274,7 @@ function injectCardData() {
  * @returns {string} The sanitized phone number containing digits only.
  */
 
-const sanitizePhone = (number) => number.replace(/\D/g, "");
+const sanitizePhone = (number) => number.replace(/[^\d+]/g, "");
 
 
 /**
@@ -551,7 +552,8 @@ async function createAndDownloadVCard() {
         `ORG:${cardData.company}`,
         `TITLE:${cardData.jobTitle}`,
         `PHOTO;ENCODING=b;TYPE=PNG:${base64}`,
-        `TEL;TYPE=work,voice:${sanitizePhone(cardData.telNumber)}`,
+        `TEL;TYPE=cell,voice:${sanitizePhone(cardData.telNumber)}`,
+        `TEL;TYPE=work,voice:${sanitizePhone(cardData.officeNumber)}`,
         `EMAIL;TYPE=internet:${cardData.email}`
       ];
 
