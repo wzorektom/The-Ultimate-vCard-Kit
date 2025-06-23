@@ -225,6 +225,7 @@
   <tr><td><code>birthday</code></td><td>Your birth day</td></tr>
   <tr><td><code>email</code></td><td>Email contact link + vCard</td></tr>
   <tr><td><code>telNumber</code></td><td>Phone number (used in call button)</td></tr>
+  <tr><td><code>officeNumber</code></td><td>Office/Landline</td></tr>
   <tr><td><code>whatsappNumber</code></td><td>Used in WhatsApp button</td></tr>
   <tr><td><code>websiteUrl</code></td><td>Your website URL</td></tr>
   <tr><td><code>address</code></td><td>Visible on card + saved in vCard</td></tr>
@@ -241,59 +242,30 @@ coverImage: "images/cover-960x640.png"
 
 <h2>Social Profiles</h2>
 
-<p>Your social media links are configured inside the <code>cardData</code> object in <code>vcard.bundle.js</code>. Each profile is defined with a <code>type</code> and a <code>url</code> in the <code>socialProfiles</code> array. You can easily add, remove, or comment out profiles based on what you want to display.</p>
+<p>
+  Your social media links are configured inside the <code>cardData</code> object in <code>vcard.bundle.js</code>.
+  Each profile is defined in the <code>socialProfiles</code> array using a <code>type</code>, a <code>url</code>, and an optional <code>enabled</code> flag.
+</p>
 
-<p>Here's what the full block looks like by default:</p>
+<p>
+  To show or hide a profile, simply set <code>enabled: true</code> or <code>false</code>.
+  If <code>enabled</code> is omitted, the profile is shown by default.
+</p>
 
-<pre><code>numberOfIcons: 3, // Set how many social icons you want to show - 3 by default
+<p>Here's an example setup:</p>
 
-socialProfiles: [
-  { type: "youtube", url: "https://youtube.com/yourlogin" },
-  { type: "tiktok", url: "https://tiktok.com/yourlogin" },
-  { type: "twitter", url: "https://twitter.com/yourlogin" },
-  /*
-  { type: "facebook", url: "https://facebook.com/yourlogin" },
-  { type: "instagram", url: "https://instagram.com/yourlogin" },
-  { type: "discord", url: "https://discord.com/users/yourlogin" },
-  { type: "linkedin", url: "https://linkedin.com/in/yourlogin" },
-  { type: "pinterest", url: "https://pinterest.com/yourlogin" },
-  { type: "nextdoor", url: "https://nextdoor.com/yourlogin" }
-  */
+<pre><code>socialProfiles: [
+  { type: "youtube", url: "https://youtube.com/yourlogin", enabled: true },
+  { type: "tiktok", url: "https://tiktok.com/yourlogin", enabled: false },
+  { type: "twitter", url: "https://twitter.com/yourlogin", enabled: true },
+  { type: "linkedin", url: "https://linkedin.com/in/yourlogin", enabled: false },
+  { type: "instagram", url: "https://instagram.com/yourlogin" }, // enabled by default
+  { type: "facebook", url: "https://facebook.com/yourlogin", enabled: true }
 ],</code></pre>
 
 <p>
-  To use a profile, simply uncomment the line by removing the <code>//</code> or removing the <code>/* ... */</code> block if it surrounds multiple lines.  
-  For example, to enable LinkedIn:
+  This method keeps all your profiles visible in the file for easy access while giving you full control over which ones are displayed - no need to comment anything out.
 </p>
-
-<pre><code>{ type: "linkedin", url: "https://linkedin.com/yourname" },</code></pre>
-
-<h3>How to Control How Many Icons Are Displayed</h3>
-<p>
-  The <code>numberOfIcons</code> property determines how many of your social profiles will appear visually on the card.  
-  By default, it's set to <code>3</code> - meaning only the first 3 profiles in the list will be shown, regardless of how many are defined.
-</p>
-
-<p><strong>Important:</strong> You must make sure that the number of <em>uncommented</em> profiles matches the value of <code>numberOfIcons</code>. For example, if you only enable two profiles, set:</p>
-<pre><code>numberOfIcons: 2</code></pre>
-
-<p>If you enable five profiles but leave <code>numberOfIcons</code> at <code>3</code>, only the first three will be displayed. The others will be ignored in the visible layout but still exist in the data structure (e.g. for the downloadable <code>.vcf</code> file).</p>
-
-<h3>Supported Platforms</h3>
-<p>These platforms are currently supported and have matching icons included in the template:</p>
-<ul>
-  <li><code>facebook</code></li>
-  <li><code>twitter</code></li>
-  <li><code>linkedin</code></li>
-  <li><code>youtube</code></li>
-  <li><code>instagram</code></li>
-  <li><code>tiktok</code></li>
-  <li><code>pinterest</code></li>
-  <li><code>discord</code></li>
-  <li><code>nextdoor</code></li>
-</ul>
-
-<p>Each icon is styled automatically via CSS and rendered in the correct brand color (e.g. LinkedIn = blue, Instagram = pink, etc.).</p>
 
 <h2>Review Settings</h2>
 
@@ -310,11 +282,11 @@ reviewLinkText: "Check Our Reviews on Google",
 <h3>How It Works</h3>
 <ul>
   <li>
-    <strong><code>googleBusinessProfile</code></strong> — The full URL to your Google Business page or public review site.
+    <strong><code>googleBusinessProfile</code></strong> - The full URL to your Google Business page or public review site.
     This will be used as the target when a user clicks the review link on your vCard.
   </li>
   <li>
-    <strong><code>ratingValue</code></strong> — A numeric value from <code>0.0</code> to <code>5.0</code> (decimals required).
+    <strong><code>ratingValue</code></strong> - A numeric value from <code>0.0</code> to <code>5.0</code> (decimals required).
     This value is used to dynamically calculate how many stars should be shown.
     <br><br>
     For example:
@@ -323,10 +295,10 @@ reviewLinkText: "Check Our Reviews on Google",
       <li><code>4.5</code> shows four full stars and one half-opacity star</li>
       <li><code>3.3</code> results in three solid stars and two faint ones</li>
     </ul>
-    ⚠️ Do not enter <code>4</code> (integer) — always use a decimal format like <code>4.0</code>, or the stars may not display correctly.
+    ⚠️ Do not enter <code>4</code> (integer) - always use a decimal format like <code>4.0</code>, or the stars may not display correctly.
   </li>
   <li>
-    <strong><code>reviewLinkText</code></strong> — This is the clickable text that appears next to your rating (e.g. “See Our Reviews”, "Check Our Reviews on Google", “Check Google Feedback”, etc.).
+    <strong><code>reviewLinkText</code></strong> - This is the clickable text that appears next to your rating (e.g. “See Our Reviews”, "Check Our Reviews on Google", “Check Google Feedback”, etc.).
   </li>
 </ul>
 
@@ -355,16 +327,16 @@ footerCompanyName: "Your Company Ltd",
 <h3>What Each Field Does:</h3>
 <ul>
   <li>
-    <strong><code>footerTagline</code></strong> — This is a short sentence or slogan shown above your footer link.  
+    <strong><code>footerTagline</code></strong> - This is a short sentence or slogan shown above your footer link.  
     It's a great place to add a brand message, motto, or value proposition (e.g., “Your trusted local expert” or “Smart connections start here”).  
     The text is styled subtly and displayed as a separate line above the clickable company link.
   </li>
   <li>
-    <strong><code>footerCompanyUrl</code></strong> — The URL that users are sent to when they click the footer company link.  
+    <strong><code>footerCompanyUrl</code></strong> - The URL that users are sent to when they click the footer company link.  
     This can be your main business website, portfolio, or landing page.
   </li>
   <li>
-    <strong><code>footerCompanyName</code></strong> — This is the clickable link text that appears in the footer.  
+    <strong><code>footerCompanyName</code></strong> - This is the clickable link text that appears in the footer.  
     It's typically your business or brand name, and it will appear as a link next to the copyright year.
   </li>
 </ul>
@@ -384,7 +356,7 @@ Helping You Connect Smarter<br>
 <h2>Sharing API</h2>
 
 <p>
-  These fields control the content used by the native mobile sharing feature — activated when a visitor taps the “Share” button on your vCard.  
+  These fields control the content used by the native mobile sharing feature - activated when a visitor taps the “Share” button on your vCard.  
   This functionality relies on the browser's built-in <code>navigator.share()</code> API, which is available in most modern mobile browsers (Chrome, Safari, Edge, and some Android apps).
 </p>
 
@@ -407,10 +379,10 @@ shareText: "You can view my Digital Business Card here:",
 <h3>What These Fields Control</h3>
 <ul>
   <li>
-    <strong><code>shareTitle</code></strong> — The title shown in the mobile share dialog. Usually this is your name or a short description of the card (e.g. “Jane Doe Digital Business Card”).
+    <strong><code>shareTitle</code></strong> - The title shown in the mobile share dialog. Usually this is your name or a short description of the card (e.g. “Jane Doe Digital Business Card”).
   </li>
   <li>
-    <strong><code>shareText</code></strong> — The descriptive text shown under the title in the share prompt. This is the message someone will see before clicking the link — keep it friendly and concise.
+    <strong><code>shareText</code></strong> - The descriptive text shown under the title in the share prompt. This is the message someone will see before clicking the link - keep it friendly and concise.
   </li>
 </ul>
 
@@ -423,7 +395,7 @@ https://yourdomain.com/vcard/
 </p>
 
 <div class="tip">
-  <strong>Tip:</strong> You don't need to specify the URL — it's added automatically based on the current page the user is viewing.  
+  <strong>Tip:</strong> You don't need to specify the URL - it's added automatically based on the current page the user is viewing.  
   Just make sure your <code>shareTitle</code> and <code>shareText</code> are clear and branded.
 </div>
 
@@ -437,7 +409,7 @@ https://yourdomain.com/vcard/
 </p>
 
 <p>
-  These variables allow you to customise the branding, text, background, buttons, and modal styles in one place — without editing individual styles manually.
+  These variables allow you to customise the branding, text, background, buttons, and modal styles in one place - without editing individual styles manually.
 </p>
 
 <h3>Main Color Variables</h3>

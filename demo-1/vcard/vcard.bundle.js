@@ -25,7 +25,7 @@
  * ----------------------------
  * - Add or remove platforms by editing the socialProfiles array
  * - Use the "type" that matches available icons (e.g. youtube, facebook, linkedin)
- * - Only the first `numberOfIcons` will be shown
+ * 
  * 
  * ================================
  * IMAGES:
@@ -75,24 +75,20 @@ const cardData = {
   websiteUrl: "https://mycompany.com",   // Optional personal/business website
 
 
-  // === Social Profiles - uncomment the profiles you want and comment the others - change number of icons to show ===
+  // === Social Profiles - set the enabled variable to true/false to either show or hide the social icon  ===
 
-  numberOfIcons: 3, // Set how many social icons you want to show - 3 by default
+socialProfiles: [
+  { type: "instagram", url: "https://instagram.com/lthorley", enabled: false },
+  { type: "nextdoor", url: "https://nextdoor.com/lthorley", enabled: false },
+  { type: "youtube", url: "https://youtube.com/lthorley", enabled: true },
+  { type: "facebook", url: "https://facebook.com/lthorley", enabled: false },
+  { type: "tiktok", url: "https://tiktok.com/lthorley", enabled: true },
+  { type: "discord", url: "https://discord.com/users/lthorley", enabled: false },
+  { type: "linkedin", url: "https://linkedin.com/lthorley", enabled: false },
+  { type: "twitter", url: "https://twitter.com/lthorley", enabled: true },
+  { type: "pinterest", url: "https://pinterest.com/lthorley", enabled: false }
+],
 
-  socialProfiles: [
-    
-    { type: "youtube", url: "https://youtube.com/liamthorley" },
-    { type: "tiktok", url: "https://tiktok.com/liamthorley" },
-    { type: "twitter", url: "https://twitter.com/liamthorley" },
-    /*
-    { type: "facebook", url: "https://twitter.com/liamthorley" },
-    { type: "instagram", url: "https://instagram.com/liamthorley" },
-    { type: "discord", url: "https://discord.com/users/liamthorley" },
-    { type: "linkedin", url: "https://linkedin.com/liamthorley" },
-    { type: "pinterest", url: "https://pinterest.com/liamthorley" },
-    { type: "nextdoor", url: "https://nextdoor.com/liamthorley" } 
-      */
-  ],
 
 
   // === Address ===
@@ -279,19 +275,20 @@ const sanitizePhone = (number) => number.replace(/[^\d+]/g, "");
 /**
  * Dynamically injects social media profile icons into the DOM.
  *
- * This function reads an array of social media profiles (each with a `type` and `url`)
+ * This function reads an array of social media profiles (each with a `type`, `url`, and optional `enabled` flag)
  * and appends corresponding <a> elements with SVG icons into the container with ID `social-links`.
- * 
- * The number of icons displayed is controlled by `cardData.numberOfIcons`. If undefined,
- * all available profiles will be rendered.
  *
- * Each icon is linked to its respective profile and includes:
+ * Only profiles with `enabled: true` (or no `enabled` flag at all) will be displayed.
+ * Disabled profiles (`enabled: false`) are ignored but remain in the data for easy toggling.
+ *
+ * Each rendered icon includes:
  * - an accessible label (aria-label),
- * - a CSS class matching the platform name for styling,
+ * - a CSS class matching the platform name for custom styling,
  * - and an SVG <use> reference that must match a <symbol> ID (e.g. #icon-facebook).
  *
- * @param {Array} profiles - Array of social profile objects with `type` and `url` fields.
+ * @param {Array} profiles - Array of social profile objects with `type`, `url`, and optional `enabled` field.
  */
+
 
 function renderSocialProfiles(profiles) {
   const container = document.getElementById("social-links");
@@ -299,35 +296,37 @@ function renderSocialProfiles(profiles) {
 
   container.innerHTML = ""; // Clear existing icons
 
-  const maxIcons = cardData.numberOfIcons || profiles.length;
-  profiles.slice(0, maxIcons).forEach(profile => {
-    const { type, url } = profile;
-    if (!type || !url) return;
+  profiles
+    .filter(profile => profile.enabled !== false) // Only show enabled profiles
+    .forEach(profile => {
+      const { type, url } = profile;
+      if (!type || !url) return;
 
-    const iconId = `#icon-${type.toLowerCase()}`; // Matches <symbol id="icon-facebook"> etc.
+      const iconId = `#icon-${type.toLowerCase()}`; // Matches <symbol id="icon-facebook"> etc.
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.setAttribute("aria-label", type);
-    a.classList.add(type.toLowerCase()); // For custom background color via CSS
+      const a = document.createElement("a");
+      a.href = url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.setAttribute("aria-label", type);
+      a.classList.add(type.toLowerCase()); // For custom background color via CSS
 
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("aria-hidden", "true");
-    svg.setAttribute("focusable", "false");
-    svg.setAttribute("viewBox", "0 0 256 256");
-    svg.setAttribute("width", "28");
-    svg.setAttribute("height", "28");
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("aria-hidden", "true");
+      svg.setAttribute("focusable", "false");
+      svg.setAttribute("viewBox", "0 0 256 256");
+      svg.setAttribute("width", "28");
+      svg.setAttribute("height", "28");
 
-    const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-    use.setAttributeNS("http://www.w3.org/1999/xlink", "href", iconId);
-    svg.appendChild(use);
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      use.setAttributeNS("http://www.w3.org/1999/xlink", "href", iconId);
+      svg.appendChild(use);
 
-    a.appendChild(svg);
-    container.appendChild(a);
-  });
+      a.appendChild(svg);
+      container.appendChild(a);
+    });
 }
+
 
 
 
