@@ -25,7 +25,7 @@
  * ----------------------------
  * - Add or remove platforms by editing the socialProfiles array
  * - Use the "type" that matches available icons (e.g. youtube, facebook, linkedin)
- * - Only the first `numberOfIcons` will be shown
+ * 
  * 
  * ================================
  * IMAGES:
@@ -69,29 +69,24 @@ const cardData = {
 
   // === Contact Information ===
   email: "mirasolensen@mycompany.com",           // Email address (mailto: link + vCard)
-  telNumber: "+440000000000",            // Telephone number (tel: link + vCard) e.g. +44 (0) 1234 567 890
-  whatsappNumber: "+440000000000",       // WhatsApp number (used in wa.me link)
+  telNumber: "+440000000001",            // Telephone number (tel: link + vCard) e.g. +44 (0) 1234 567 890
+  officeNumber: "+440000000002",          // Office/Landline
+  whatsappNumber: "+440000000001",       // WhatsApp number (used in wa.me link)
   websiteUrl: "https://mycompany.com",   // Optional personal/business website
 
 
-  // === Social Profiles - uncomment the profiles you want and comment the others - change number of icons to show ===
-
-  numberOfIcons: 3, // Set how many social icons you want to show - 3 by default
+  // === Social Profiles - set the enabled variable to true/false to either show or hide the social icon  ===
 
   socialProfiles: [
-    { type: "instagram", url: "https://instagram.com/mirasolensen" },
-    { type: "nextdoor", url: "https://nextdoor.com/mirasolensen" }, 
-    { type: "youtube", url: "https://youtube.com/mirasolensen" },
-    
-    
-    /*
-    { type: "facebook", url: "https://twitter.com/mirasolensen" },
-    { type: "tiktok", url: "https://tiktok.com/mirasolensen" },
-    { type: "discord", url: "https://discord.com/users/mirasolensen" },
-    { type: "linkedin", url: "https://linkedin.com/mirasolensen" },
-    { type: "twitter", url: "https://twitter.com/mirasolensen" },
-    { type: "pinterest", url: "https://pinterest.com/mirasolensen" }
-      */
+  { type: "instagram", url: "https://instagram.com/msolensen", enabled: true },
+  { type: "nextdoor", url: "https://nextdoor.com/msolensen", enabled: true },
+  { type: "youtube", url: "https://youtube.com/msolensen", enabled: true },
+  { type: "facebook", url: "https://facebook.com/msolensen", enabled: false },
+  { type: "tiktok", url: "https://tiktok.com/msolensen", enabled: false },
+  { type: "discord", url: "https://discord.com/users/msolensen", enabled: false },
+  { type: "linkedin", url: "https://linkedin.com/msolensen", enabled: false },
+  { type: "twitter", url: "https://twitter.com/msolensen", enabled: false },
+  { type: "pinterest", url: "https://pinterest.com/msolensen", enabled: false }
   ],
 
 
@@ -104,7 +99,7 @@ const cardData = {
 
   // === Reviews Section ===
   reviewLinkText: "Check Our Reviews on Google",                            // Text shown as the link to your reviews
-  googleBusinessProfile: "https://MyGoogleBusinessProfile",                 // Link to your Google Business Profile
+  googleBusinessProfile: "https://g.page/yourbiz",                 // Link to your Google Business Profile or any other business profile
   ratingValue: "4.5",                                                       // Numeric rating value (Automatically adjusts the stars)
 
   // === QR Modal Content ===
@@ -245,7 +240,7 @@ function injectCardData() {
 
   // Create clickable contact actions
   const whatsappLink = document.getElementById("whatsapp-link");
-  if (whatsappLink) whatsappLink.href = `https://wa.me/${sanitizePhone(cardData.whatsappNumber)}`;
+  if (whatsappLink) whatsappLink.href = `https://wa.me/${sanitizePhone(cardData.whatsappNumber).replace(/\D/g, "")}`;
 
   const callLink = document.getElementById("call-link");
   if (callLink) callLink.href = `tel:${sanitizePhone(cardData.telNumber)}`;
@@ -273,25 +268,26 @@ function injectCardData() {
  * @returns {string} The sanitized phone number containing digits only.
  */
 
-const sanitizePhone = (number) => number.replace(/\D/g, "");
+const sanitizePhone = (number) => number.replace(/[^\d+]/g, "");
 
 
 /**
  * Dynamically injects social media profile icons into the DOM.
  *
- * This function reads an array of social media profiles (each with a `type` and `url`)
+ * This function reads an array of social media profiles (each with a `type`, `url`, and optional `enabled` flag)
  * and appends corresponding <a> elements with SVG icons into the container with ID `social-links`.
  * 
- * The number of icons displayed is controlled by `cardData.numberOfIcons`. If undefined,
- * all available profiles will be rendered.
+ * Only profiles with `enabled: true` (or no `enabled` flag at all) will be displayed.
+ * Disabled profiles (`enabled: false`) are ignored but remain in the data for easy toggling.
  *
- * Each icon is linked to its respective profile and includes:
+ * Each rendered icon includes:
  * - an accessible label (aria-label),
- * - a CSS class matching the platform name for styling,
+ * - a CSS class matching the platform name for custom styling,
  * - and an SVG <use> reference that must match a <symbol> ID (e.g. #icon-facebook).
  *
- * @param {Array} profiles - Array of social profile objects with `type` and `url` fields.
+ * @param {Array} profiles - Array of social profile objects with `type`, `url`, and optional `enabled` field.
  */
+
 
 function renderSocialProfiles(profiles) {
   const container = document.getElementById("social-links");
@@ -299,8 +295,9 @@ function renderSocialProfiles(profiles) {
 
   container.innerHTML = ""; // Clear existing icons
 
-  const maxIcons = cardData.numberOfIcons || profiles.length;
-  profiles.slice(0, maxIcons).forEach(profile => {
+  profiles
+    .filter(profile => profile.enabled !== false) // Only show enabled profiles
+    .forEach(profile => {
     const { type, url } = profile;
     if (!type || !url) return;
 
@@ -328,6 +325,7 @@ function renderSocialProfiles(profiles) {
     container.appendChild(a);
   });
 }
+
 
 
 
@@ -551,7 +549,8 @@ async function createAndDownloadVCard() {
         `ORG:${cardData.company}`,
         `TITLE:${cardData.jobTitle}`,
         `PHOTO;ENCODING=b;TYPE=PNG:${base64}`,
-        `TEL;TYPE=work,voice:${sanitizePhone(cardData.telNumber)}`,
+        `TEL;TYPE=cell,voice:${sanitizePhone(cardData.telNumber)}`,
+        `TEL;TYPE=work,voice:${sanitizePhone(cardData.officeNumber)}`,
         `EMAIL;TYPE=internet:${cardData.email}`
       ];
 
