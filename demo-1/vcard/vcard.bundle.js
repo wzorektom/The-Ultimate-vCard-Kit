@@ -59,68 +59,43 @@
  * shareText  → Description in Web Share prompt
  */
 
-const cardData = {
+let cardData = {}; // will be loaded from JSON
 
-  // === Identity / Personal Info ===
-  fullName: "Liam Thorley",               // Full name shown on the card and in vCard
-  jobTitle: "Client Relations Manager",  // Job title under name and in vCard
-  company: "My Company Solutions Ltd",             // Company name shown on the card and in vCard
-  birthday: "19900101",                  // Optional birthday in YYYYMMDD format
+async function loadCardData() {
+  try {
+    const response = await fetch("./cardData.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Failed to load cardData.json");
+    cardData = await response.json();
+  } catch (err) {
+    console.error("Error loading card data:", err);
+    alert("There was a problem loading your card data.");
+  }
+}
 
-  // === Contact Information ===
-  email: "liamthorley@mycompany.com",           // Email address (mailto: link + vCard)
-  telNumber: "+440000000001",            // Telephone number (tel: link + vCard) e.g. +44 (0) 1234 567 890
-  officeNumber: "+440000000002",          // Office/Landline
-  whatsappNumber: "+440000000001",       // WhatsApp number (used in wa.me link)
-  websiteUrl: "https://mycompany.com",   // Optional personal/business website
+function injectMetaTags(meta = {}) {
+  document.title = meta.title || "Digital Business Card";
+  document.getElementById("meta-title").textContent = meta.title || "";
+  document.getElementById("meta-description").setAttribute("content", meta.description || "");
+  document.getElementById("meta-author").setAttribute("content", meta.author || "");
+
+  // Open Graph
+  document.getElementById("og-title").setAttribute("content", meta.title || "");
+  document.getElementById("og-description").setAttribute("content", meta.description || "");
+  document.getElementById("og-image").setAttribute("content", meta.image || "");
+  document.getElementById("og-url").setAttribute("content", meta.url || "");
+
+  // Twitter
+  document.getElementById("twitter-title").setAttribute("content", meta.title || "");
+  document.getElementById("twitter-description").setAttribute("content", meta.description || "");
+  document.getElementById("twitter-image").setAttribute("content", meta.image || "");
+  document.getElementById("twitter-url").setAttribute("content", meta.url || "");
+
+  // Favicon
+  document.getElementById("favicon-link").setAttribute("href", meta.favicon || "");
+  document.getElementById("apple-touch-icon").setAttribute("href", meta.appleTouchIcon || "");
+}
 
 
-  // === Social Profiles - set the enabled variable to true/false to either show or hide the social icon  ===
-
-socialProfiles: [
-  { type: "instagram", url: "https://instagram.com/lthorley", enabled: false },
-  { type: "nextdoor", url: "https://nextdoor.com/lthorley", enabled: false },
-  { type: "youtube", url: "https://youtube.com/lthorley", enabled: true },
-  { type: "facebook", url: "https://facebook.com/lthorley", enabled: false },
-  { type: "tiktok", url: "https://tiktok.com/lthorley", enabled: true },
-  { type: "discord", url: "https://discord.com/users/lthorley", enabled: false },
-  { type: "linkedin", url: "https://linkedin.com/lthorley", enabled: false },
-  { type: "twitter", url: "https://twitter.com/lthorley", enabled: true },
-  { type: "pinterest", url: "https://pinterest.com/lthorley", enabled: false }
-],
-
-
-
-  // === Address ===
-  address: "10 Edgware Road, London, W5 7HA, United Kingdom", // Full business address (shown + vCard ADR)
-
-  // === Biography / About ===
-  bio: "My Company helps small businesses grow through smart digital strategies and personalised support.", // Short tagline (used in card + vCard NOTE)
-  companyDescription: "At My Company, we take time to understand your business goals and challenges. Whether you're launching something new or improving what already works, our flexible approach ensures every solution fits your unique needs.", // Optional long description (not in vCard)
-
-  // === Reviews Section ===
-  reviewLinkText: "Check Our Reviews on Google",                            // Text shown as the link to your reviews
-  googleBusinessProfile: "https://g.page/yourbiz",                 // Link to your Google Business Profile or any other business profile
-  ratingValue: "4.5",                                                       // Numeric rating value (Automatically adjusts the stars)
-
-  // === QR Modal Content ===
-  qrHeading: "Scan the QR Code",             // Heading shown in the QR popup modal
-  qrDescription: "to view my Business Card on another device", // Description below QR
-
-  // === Footer Link ===
-  footerTagline: "Smart connections start with a digital card.",
-  footerCompanyUrl: "https://mycompany.com/", // URL of footer company link
-  footerCompanyName: "My Company Solutions Ltd",        // Link text for footer
-
-  // === Image & Icon Files (filenames must match files in the folder) ===
-  profileImage: "images/headshoot-300x300.png",      // Profile photo (shown + embedded in vCard)
-  coverImage: "images/cover-960x640.png",            // Header background image
-
-  // === Metadata / SEO / Sharing ===
-  shareTitle: "Liam Thorley Digital Business Card", // Title used by Web Share API
-  shareText: "You can view my Digital Business Card here:" // Web Share API description
-
-};
 
 
 
@@ -642,17 +617,21 @@ async function createAndDownloadVCard() {
  * avoiding race conditions or missing element references.
  */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadCardData(); // ⬅ Load the JSON first
+injectMetaTags(cardData.meta);
+
   injectCardData();
   setupQRModalAndSharing();
   renderSocialProfiles(cardData.socialProfiles);
 
   const saveBtn = document.getElementById("vcf-save-contact");
   if (saveBtn) {
-    saveBtn.addEventListener("click", function(event) {
+    saveBtn.addEventListener("click", function (event) {
       event.preventDefault();
       createAndDownloadVCard();
     });
   }
 });
+
 

@@ -1,0 +1,72 @@
+{
+  "fullName": "Liam Thorley",
+  "jobTitle": "Client Relations Manager",
+  "company": "My Company Solutions Ltd",
+  "birthday": "19900101",
+
+  "email": "liamthorley@mycompany.com",
+  "telNumber": "+440000000001",
+  "officeNumber": "+440000000002",
+  "whatsappNumber": "+440000000001",
+  "websiteUrl": "https://mycompany.com",
+
+  "socialProfiles": [
+    { "type": "instagram", "url": "https://instagram.com/lthorley", "enabled": false },
+    { "type": "nextdoor", "url": "https://nextdoor.com/lthorley", "enabled": false },
+    { "type": "youtube", "url": "https://youtube.com/lthorley", "enabled": true },
+    { "type": "facebook", "url": "https://facebook.com/lthorley", "enabled": false },
+    { "type": "tiktok", "url": "https://tiktok.com/lthorley", "enabled": true },
+    { "type": "discord", "url": "https://discord.com/users/lthorley", "enabled": false },
+    { "type": "linkedin", "url": "https://linkedin.com/lthorley", "enabled": false },
+    { "type": "twitter", "url": "https://twitter.com/lthorley", "enabled": true },
+    { "type": "pinterest", "url": "https://pinterest.com/lthorley", "enabled": false }
+  ],
+
+  "address": "10 Edgware Road, London, W5 7HA, United Kingdom",
+  "bio": "My Company helps small businesses grow through smart digital strategies and personalised support.",
+  "companyDescription": "At My Company, we take time to understand your business goals and challenges. Whether you're launching something new or improving what already works, our flexible approach ensures every solution fits your unique needs.",
+  "reviewLinkText": "Check Our Reviews on Google",
+  "googleBusinessProfile": "https://g.page/yourbiz",
+  "ratingValue": "4.5",
+
+  "qrHeading": "Scan the QR Code",
+  "qrDescription": "to view my Business Card on another device",
+
+  "footerTagline": "Smart connections start with a digital card.",
+  "footerCompanyUrl": "https://mycompany.com/",
+  "footerCompanyName": "My Company Solutions Ltd",
+
+  "profileImage": "images/headshoot-300x300.png",
+  "coverImage": "images/cover-960x640.png",
+
+  "shareTitle": "Liam Thorley Digital Business Card",
+  "shareText": "You can view my Digital Business Card here:",
+
+  "meta": {
+    "title": "Liam Thorley Digital Business Card",
+    "description": "The digital business card of Liam Thorley - ready to save, share, and connect.",
+    "author": "Liam Thorley",
+    "robots": "noindex, nofollow",
+
+    "favicon": "images/favi-100x100.png",
+    "appleTouchIcon": "images/bookmark-128x128.png",
+
+    "og": {
+      "type": "website",
+      "title": "Liam Thorley Digital Business Card",
+      "description": "The digital business card of Liam Thorley - ready to save, share, and connect.",
+      "image": "images/share-1200x630.png",
+      "imageWidth": "1200",
+      "imageHeight": "630",
+      "url": "https://vcard-demo.co.uk/liamt/vcard/"
+    },
+
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "Liam Thorley Digital Business Card",
+      "description": "The digital business card of Liam Thorley - ready to save, share, and connect.",
+      "image": "images/share-1200x630.png",
+      "url": "https://vcard-demo.co.uk/liamt/vcard/"
+    }
+  }
+}
