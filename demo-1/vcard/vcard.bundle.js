@@ -3,64 +3,65 @@
  * 🔧 Editable Profile Configuration
  * ================================
  * 
- * This is the only file you need to edit to personalize your digital vCard.
- * Update the values below to reflect your name, contact info, images, and social media.
+ * Edit ONLY the JSON data in `cardData.json`.
+ * This script dynamically loads and injects your vCard content.
  * 
- * GENERAL INSTRUCTIONS:
- * - Keep text inside quotes ("...")
- * - Make sure image filenames match files in your /images folder
- * - Do not remove keys — just update their values
+ * GENERAL:
+ * - Keep all text values inside quotes ("...")
+ * - Make sure images exist in your /images folder or use full URLs
+ * - Do not remove keys, just update values in the JSON
  * 
  * ================================
  * FIELD OVERVIEW:
- * ----------------------------
- * fullName, jobTitle, company       → Shown prominently on the card and saved in the vCard file
- * email, telNumber, whatsappNumber → Used in buttons and vCard export
- * address                          → Visible on card, stored in vCard ADR field
- * bio                              → Short personal blurb below your name
- * companyDescription               → Longer paragraph shown in the “About Company” section
+ * -------------------------------
+ * fullName, jobTitle, company        → Shown on card and in vCard file
+ * email, telNumber, whatsappNumber  → Used for contact links and vCard
+ * address                           → Displayed and saved in vCard ADR field
+ * bio                               → Short personal description on card
+ * companyDescription                → Longer "About" text in company section
  * 
  * ================================
  * SOCIAL PROFILES:
- * ----------------------------
- * - Add or remove platforms by editing the socialProfiles array
- * - Use the "type" that matches available icons (e.g. youtube, facebook, linkedin)
- * 
+ * -------------------------------
+ * Use the "type" to match available icons (e.g. facebook, twitter)
+ * Enable/disable profiles via the `enabled` boolean flag.
  * 
  * ================================
  * IMAGES:
- * ----------------------------
- * profileImage → Your headshot 
- * coverImage   → Background banner image for the header 
+ * -------------------------------
+ * profileImage → Headshot photo
+ * coverImage   → Header background/banner image
  * 
  * ================================
  * REVIEWS:
- * ----------------------------
- * ratingValue            → Number from 0 to 5.0, controls star display
- * googleBusinessProfile  → Link to your public reviews
- * reviewLinkText         → Label text shown on the link
+ * -------------------------------
+ * ratingValue           → Numeric 0 to 5.0 star rating
+ * googleBusinessProfile → Link to Google reviews page
+ * reviewLinkText        → Label text for review link
  * 
  * ================================
  * QR MODAL:
- * ----------------------------
- * qrHeading, qrDescription → Shown when user opens the QR code overlay
+ * -------------------------------
+ * qrHeading, qrDescription → Text shown in the QR modal
  * 
  * ================================
  * FOOTER INFO:
- * ----------------------------
- * footerTagline         → Short slogan in the footer
- * footerCompanyName     → Text of the footer link
- * footerCompanyUrl      → URL the footer link points to
+ * -------------------------------
+ * footerTagline       → Footer slogan text
+ * footerCompanyName   → Text for footer company link
+ * footerCompanyUrl    → URL for footer company link
  * 
  * ================================
  * SHARING META:
- * ----------------------------
- * shareTitle → Title shown in Web Share prompt
- * shareText  → Description in Web Share prompt
+ * -------------------------------
+ * shareTitle → Title shown in native share dialogs
+ * shareText  → Description shown in native share dialogs
  */
 
-let cardData = {}; // will be loaded from JSON
+// Global card data container
+let cardData = {};
 
+// Load cardData.json asynchronously
 async function loadCardData() {
   try {
     const response = await fetch("./cardData.json", { cache: "no-store" });
@@ -68,223 +69,178 @@ async function loadCardData() {
     cardData = await response.json();
   } catch (err) {
     console.error("Error loading card data:", err);
-    alert("There was a problem loading your card data.");
+    alert("Problem loading card data.");
   }
 }
 
-function injectMetaTags(meta = {}) {
+/**
+ * Resolve relative paths to full URLs using baseUrl.
+ * If path is already absolute (http/https), return as-is.
+ * Ensures exactly one slash between baseUrl and path.
+ */
+function resolveUrl(baseUrl, path) {
+ // console.log("Resolving URL:", { baseUrl, path });
+  if (!path) return "";
+  if (/^https?:\/\//i.test(path)) return path; // absolute URL, return as is
+  const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+  const p = path.startsWith("/") ? path : "/" + path;
+ // console.log("Resolved URL:", base + p);
+  return base + p;
+}
+
+/**
+ * Injects SEO meta tags dynamically into the <head>.
+ * Supports Open Graph, Twitter Cards, and icons.
+ */
+function injectMetaTags(meta = {}, baseUrl = "") {
   document.title = meta.title || "Digital Business Card";
+
   document.getElementById("meta-title").textContent = meta.title || "";
   document.getElementById("meta-description").setAttribute("content", meta.description || "");
   document.getElementById("meta-author").setAttribute("content", meta.author || "");
 
   // Open Graph
-  document.getElementById("og-title").setAttribute("content", meta.title || "");
-  document.getElementById("og-description").setAttribute("content", meta.description || "");
-  document.getElementById("og-image").setAttribute("content", meta.image || "");
-  document.getElementById("og-url").setAttribute("content", meta.url || "");
+  document.getElementById("og-title").setAttribute("content", meta.og?.title || "");
+  document.getElementById("og-description").setAttribute("content", meta.og?.description || "");
+  document.getElementById("og-image").setAttribute("content", resolveUrl(baseUrl, meta.og?.image || ""));
+  document.getElementById("og-url").setAttribute("content", meta.og?.url || baseUrl);
 
-  // Twitter
-  document.getElementById("twitter-title").setAttribute("content", meta.title || "");
-  document.getElementById("twitter-description").setAttribute("content", meta.description || "");
-  document.getElementById("twitter-image").setAttribute("content", meta.image || "");
-  document.getElementById("twitter-url").setAttribute("content", meta.url || "");
+  // Twitter Card
+  document.getElementById("twitter-title").setAttribute("content", meta.twitter?.title || "");
+  document.getElementById("twitter-description").setAttribute("content", meta.twitter?.description || "");
+  document.getElementById("twitter-image").setAttribute("content", resolveUrl(baseUrl, meta.twitter?.image || ""));
+  document.getElementById("twitter-url").setAttribute("content", meta.twitter?.url || baseUrl);
 
-  // Favicon
-  document.getElementById("favicon-link").setAttribute("href", meta.favicon || "");
-  document.getElementById("apple-touch-icon").setAttribute("href", meta.appleTouchIcon || "");
+  // Favicons and touch icons
+  document.getElementById("favicon-link").setAttribute("href", resolveUrl(baseUrl, meta.favicon || "images/favi-100x100.png"));
+  document.getElementById("apple-touch-icon").setAttribute("href", resolveUrl(baseUrl, meta.appleTouchIcon || "images/bookmark-128x128.png"));
 }
 
-
-
-
-
-// =============================================================
-// 🚫 DO NOT EDIT BELOW THIS LINE
-// =============================================================
-// The following code powers the dynamic rendering, vCard export,
-// QR functionality, and contact logic. Changing anything below
-// may break the functionality of your digital business card.
-//
-// You only need to customize the `cardData` object above.
-// =============================================================
-
-
-
-
 /**
- * Renders a 5-star rating with dynamic opacity based on a numeric rating.
- *
- * - Always renders 5 full stars (★)
- * - Applies opacity to each star according to the score (e.g. 4.5)
- * - Higher rating = more opaque stars
- * - Fully CSP-compliant: uses class-based styling, no inline styles
- *
- * @param {string|number} value - Numeric rating value (e.g. "4.2")
- * @returns {string} - HTML string of 5 span elements with opacity classes
+ * Renders 5 stars with opacity based on rating value (e.g., 4.5).
+ * Uses CSS classes for opacity (e.g. opacity-50).
  */
-
 function renderRatingStars(value) {
-  const rating = parseFloat(value);
+  const rating = parseFloat(value) || 0;
   let html = "";
-
   for (let i = 1; i <= 5; i++) {
     const opacity = Math.min(1, Math.max(0, rating - (i - 1)));
     const className = `star-dynamic opacity-${Math.round(opacity * 100)}`;
     html += `<span class="${className}">★</span>`;
   }
-
   return html;
 }
 
-
+/**
+ * Sanitize phone number by removing everything except digits and plus sign.
+ */
+function sanitizePhone(number) {
+  if (!number) return "";
+  return number.replace(/[^\d+]/g, "");
+}
 
 /**
- * Populates the vCard page with dynamic data from the `cardData` object.
- *
- * This function injects all editable content into the DOM, including:
- * - Profile name, job title, address, bio, and avatar image
- * - Company description and review link
- * - Footer tagline, company link, and current year
- * - Header cover image
- * - Contact action buttons (call, email, WhatsApp)
- * - Star rating display and numeric score
- * - QR modal title and description
- *
- * It uses helper logic to safely fall back on default text if values are missing.
- * Also builds proper URLs for images and contact actions.
- *
- * @requires {Object} cardData - Must contain structured fields like `fullName`, `profileImage`, `companyDescription`, etc.
- * @requires {Function} renderRatingStars - Used to generate star rating HTML
- * @requires {Function} sanitizePhone - Used to safely format phone numbers for call/WhatsApp links
+ * Injects all card data into the DOM:
+ * - Text content, images, contact links, reviews, footer
  */
-
 function injectCardData() {
-  // Determine the base path of the current directory
-  const base = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, "");
+  const baseUrl = cardData.baseUrl || "";
 
-  // Helper to set inner text for multiple elements sharing the same class
+  // Helper to set text content on all matching elements
   const setText = (selector, text) => {
     document.querySelectorAll(selector).forEach(el => el.textContent = text);
   };
 
-  // Insert profile and company information
-  setText(".profile-name", cardData.fullName || "Missing Full Name");                                // Full name
-  setText(".profile-job-title", cardData.jobTitle || "Job Title Unavailable");                       // Job title
-  setText(".profile-address", cardData.address || "Business Location Unavailable");                  // Business address
-  setText(".profile-bio", cardData.bio || "Bio Description Unavailable");                            // Short bio / tagline
-  setText(".company-description", cardData.companyDescription || "Company Description Unavailable"); // Longer company description
+  setText(".profile-name", cardData.fullName || "Missing Full Name");
+  setText(".profile-job-title", cardData.jobTitle || "Job Title Unavailable");
+  setText(".profile-address", cardData.address || "Business Location Unavailable");
+  setText(".profile-bio", cardData.bio || "Bio Description Unavailable");
+  setText(".company-description", cardData.companyDescription || "Company Description Unavailable");
 
-  // Update footer link with company name and URL
+  // Footer company link
   const footerLink = document.getElementById("site-footer-link");
   if (footerLink) {
-    footerLink.href = cardData.footerCompanyUrl;              // Website URL
-    footerLink.textContent = cardData.footerCompanyName;      // Link text
-    footerLink.target = "_blank";                             // Opens in new tab
-    footerLink.rel = "noopener noreferrer";                   // Security best practice
+    footerLink.href = cardData.footerCompanyUrl || "#";
+    footerLink.textContent = cardData.footerCompanyName || "";
+    footerLink.target = "_blank";
+    footerLink.rel = "noopener noreferrer";
   }
 
-  // Inject footer tagline
+  // Footer tagline
   const tagline = document.getElementById("site-footer-tagline");
   if (tagline) tagline.textContent = cardData.footerTagline || "";
 
-  // Inject current year dynamically
+  // Current year
   const yearSpan = document.getElementById("site-footer-year");
   if (yearSpan) yearSpan.textContent = ` | ${new Date().getFullYear()}`;
 
-  // Load profile and header images
+  // Load images with resolveUrl
   const profileImg = document.getElementById("profile-avatar");
-  if (profileImg) profileImg.src = `${base}/${cardData.profileImage}`; // Headshot
-  const coverImg = document.getElementById("header-cover-image");
-  if (coverImg) coverImg.src = `${base}/${cardData.coverImage}`;       // Cover/banner image
+  if (profileImg) profileImg.src = resolveUrl(baseUrl, cardData.profileImage);
 
-  // Update reviews section
+  const coverImg = document.getElementById("header-cover-image");
+  if (coverImg) coverImg.src = resolveUrl(baseUrl, cardData.coverImage);
+
+  // Reviews section
   const reviewLink = document.querySelector(".company-info-review-link");
   if (reviewLink) {
-    reviewLink.href = cardData.googleBusinessProfile;
-    reviewLink.textContent = cardData.reviewLinkText;
+    reviewLink.href = cardData.googleBusinessProfile || "#";
+    reviewLink.textContent = cardData.reviewLinkText || "Read Reviews";
     reviewLink.target = "_blank";
     reviewLink.rel = "noopener noreferrer";
   }
 
-
   const stars = document.querySelector(".company-info-stars");
-  if (stars) stars.innerHTML = renderRatingStars(cardData.ratingValue);        // Star icons (can use HTML)
+  if (stars) stars.innerHTML = renderRatingStars(cardData.ratingValue);
 
   const rating = document.querySelector(".company-info-rating-value");
-  if (rating) rating.textContent = cardData.ratingValue;    // Numeric rating (e.g. “4.9”)
+  if (rating) rating.textContent = cardData.ratingValue || "";
 
-  // Create clickable contact actions
+  // Contact action links
   const whatsappLink = document.getElementById("whatsapp-link");
-  if (whatsappLink) whatsappLink.href = `https://wa.me/${sanitizePhone(cardData.whatsappNumber).replace(/\D/g, "")}`;
+  if (whatsappLink && cardData.whatsappNumber) {
+    whatsappLink.href = `https://wa.me/${sanitizePhone(cardData.whatsappNumber).replace(/\D/g, "")}`;
+  }
 
   const callLink = document.getElementById("call-link");
-  if (callLink) callLink.href = `tel:${sanitizePhone(cardData.telNumber)}`;
+  if (callLink && cardData.telNumber) {
+    callLink.href = `tel:${sanitizePhone(cardData.telNumber)}`;
+  }
 
   const emailLink = document.getElementById("email-link");
-  if (emailLink) emailLink.href = `mailto:${cardData.email}`;
+  if (emailLink && cardData.email) {
+    emailLink.href = `mailto:${cardData.email}`;
+  }
 
-  // Set modal title and description for the QR code popup
-  document.getElementById("qr-modal-title").textContent = cardData.qrHeading;
-  document.getElementById("qr-modal-description").textContent = cardData.qrDescription;
+  // QR modal text
+  const qrTitle = document.getElementById("qr-modal-title");
+  if (qrTitle) qrTitle.textContent = cardData.qrHeading || "Scan the QR Code";
+
+  const qrDescription = document.getElementById("qr-modal-description");
+  if (qrDescription) qrDescription.textContent = cardData.qrDescription || "";
 }
 
-
-
 /**
- * Removes all non-digit characters from a phone number string.
- *
- * Useful for formatting phone numbers into numeric-only strings
- * for use in tel:, WhatsApp, and vCard links.
- *
- * Example:
- *   "+44 (0) 7123 456 789" → "4407123456789"
- *
- * @param {string} number - The raw phone number string (may include spaces, dashes, etc.)
- * @returns {string} The sanitized phone number containing digits only.
+ * Inject social media icons into #social-links container.
+ * Only show profiles with enabled !== false.
  */
-
-const sanitizePhone = (number) => number.replace(/[^\d+]/g, "");
-
-
-/**
- * Dynamically injects social media profile icons into the DOM.
- *
- * This function reads an array of social media profiles (each with a `type`, `url`, and optional `enabled` flag)
- * and appends corresponding <a> elements with SVG icons into the container with ID `social-links`.
- *
- * Only profiles with `enabled: true` (or no `enabled` flag at all) will be displayed.
- * Disabled profiles (`enabled: false`) are ignored but remain in the data for easy toggling.
- *
- * Each rendered icon includes:
- * - an accessible label (aria-label),
- * - a CSS class matching the platform name for custom styling,
- * - and an SVG <use> reference that must match a <symbol> ID (e.g. #icon-facebook).
- *
- * @param {Array} profiles - Array of social profile objects with `type`, `url`, and optional `enabled` field.
- */
-
-
 function renderSocialProfiles(profiles) {
   const container = document.getElementById("social-links");
   if (!container || !Array.isArray(profiles)) return;
 
-  container.innerHTML = ""; // Clear existing icons
+  container.innerHTML = ""; // Clear existing
 
   profiles
-    .filter(profile => profile.enabled !== false) // Only show enabled profiles
-    .forEach(profile => {
-      const { type, url } = profile;
-      if (!type || !url) return;
-
-      const iconId = `#icon-${type.toLowerCase()}`; // Matches <symbol id="icon-facebook"> etc.
+    .filter(p => p.enabled !== false && p.type && p.url)
+    .forEach(({ type, url }) => {
+      const iconId = `#icon-${type.toLowerCase()}`;
 
       const a = document.createElement("a");
       a.href = url;
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       a.setAttribute("aria-label", type);
-      a.classList.add(type.toLowerCase()); // For custom background color via CSS
+      a.classList.add(type.toLowerCase());
 
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svg.setAttribute("aria-hidden", "true");
@@ -302,31 +258,14 @@ function renderSocialProfiles(profiles) {
     });
 }
 
-
-
-
 /**
- * Generates a scalable SVG QR code that inherits its color from CSS.
- *
- * This function creates an SVG-based QR code where each square (module)
- * uses `fill: currentColor`, allowing its color to be controlled via CSS
- * on the parent container (e.g. using `color: var(--color-primary)`).
- *
- * The background color remains customizable via the `background` parameter.
- *
- * @param {string} content - The data to encode in the QR code (e.g. a URL).
- * @param {number} [size=256] - Width and height of the SVG canvas in pixels.
- * @param {number} [padding=0] - Padding (in modules) around the QR content.
- * @param {string} [background="#ffffff"] - Background color of the QR code.
- *
- * @returns {SVGElement} A fully constructed <svg> element representing the QR code.
- *
- * @example
- * // Inject into the DOM with color inherited from CSS
- * const qrSvg = generateQRCodeSVG("https://example.com");
- * document.getElementById("qr-code").appendChild(qrSvg);
+ * Generate an SVG QR code with color inherited from CSS.
+ * @param {string} content - Data to encode (URL)
+ * @param {number} [size=256] - SVG width/height in px
+ * @param {number} [padding=0] - Padding modules
+ * @param {string} [background="#fff"] - Background color
+ * @returns {SVGElement} SVG element with QR code
  */
-
 function generateQRCodeSVG(content, size = 256, padding = 0, background = "#ffffff") {
   const qr = new QRCode({ content, width: size, height: size, padding, color: "#000", background });
   const modules = qr.qrcode.modules;
@@ -359,7 +298,7 @@ function generateQRCodeSVG(content, size = 256, padding = 0, background = "#ffff
       rect.setAttribute("y", y);
       rect.setAttribute("width", scale);
       rect.setAttribute("height", scale);
-      rect.setAttribute("fill", "currentColor"); // Inherits from parent element’s CSS color
+      rect.setAttribute("fill", "currentColor");
       svg.appendChild(rect);
     }
   }
@@ -367,44 +306,12 @@ function generateQRCodeSVG(content, size = 256, padding = 0, background = "#ffff
   return svg;
 }
 
-
-
-
 /**
- * Initializes the QR code modal and sharing functionality.
- *
- * This function sets up the following interactive features:
- *
- * 1. **QR Code Modal Toggle**
- *    - Opens and closes the QR code overlay with smooth CSS transitions.
- *    - Toggles visibility using inline `style.top`, `opacity`, and `visibility` (CSP-safe).
- *
- * 2. **QR Code Injection**
- *    - Dynamically generates a QR code SVG using the current page URL.
- *    - Injects it into the element with ID `#qr-code` using `generateQRCodeSVG()`.
- *    - QR squares use `currentColor`, allowing CSS-based color control.
- *
- * 3. **Web Share API Support**
- *    - If `navigator.share` is supported:
- *       → Taps the native share sheet with `title`, `text`, and `url` from `cardData`.
- *    - If not supported:
- *       → Falls back to showing the QR modal instead.
- *
- * 4. **Header Visibility**
- *    - Ensures the header action buttons (`#header-actions`) are set to visible.
- *
- * Event listeners are attached to:
- * - The "Show QR" button (`#showQR`)
- * - The "Share" button (`#share`)
- * - The modal close button (`#qr-modal-close`)
- *
- * Requires:
- * - An SVG container with ID `#qr-code`
- * - A modal with ID `#qr-modal`
- * - Icons/buttons with IDs `#showQR`, `#share`, and `#qr-modal-close`
- * - `cardData` must contain optional `shareTitle` and `shareText`
+ * Set up QR code modal and share button.
+ * - Toggle modal visibility with smooth CSS transition
+ * - Generate QR code SVG with current URL
+ * - Use Web Share API if available, fallback to QR modal
  */
-
 function setupQRModalAndSharing() {
   const modal = document.getElementById("qr-modal");
   const closeBtn = document.getElementById("qr-modal-close");
@@ -413,14 +320,11 @@ function setupQRModalAndSharing() {
   const qrTrigger = document.getElementById("showQR");
   const shareBtn = document.getElementById("share");
 
-  // Modal toggle helper
   function toggleModal(el) {
     if (el.style.top === "0px") {
       el.style.top = "2rem";
       el.style.opacity = 0;
-      setTimeout(() => {
-        el.style.visibility = "hidden";
-      }, 200);
+      setTimeout(() => (el.style.visibility = "hidden"), 200);
     } else {
       el.style.visibility = "visible";
       el.style.top = "0px";
@@ -428,34 +332,35 @@ function setupQRModalAndSharing() {
     }
   }
 
-  // Ensure the QR/share actions are visible
+  // Make header actions visible
   const headerActions = document.querySelector("#header-actions");
   if (headerActions) headerActions.style.display = "flex";
 
-  // Generate and inject QR SVG (CSP-safe)
-  const qrSvg = generateQRCodeSVG(window.location.href, 256, 0); // You can pull from cardData if needed
+  // Generate QR code SVG with current page URL
+  const qrSvg = generateQRCodeSVG(window.location.href, 256, 0);
   qrContainer.innerHTML = "";
   qrContainer.appendChild(qrSvg);
 
-  // Native share support
+  // Web Share API
   if (shareBtn && navigator.share) {
-    shareBtn.addEventListener("click", (e) => {
+    shareBtn.addEventListener("click", e => {
       e.preventDefault();
-      navigator.share({
-        title: cardData.shareTitle || document.title,
-        text: cardData.shareText,
-        url: window.location.href
-      }).catch(console.warn);
+      navigator
+        .share({
+          title: cardData.shareTitle || document.title,
+          text: cardData.shareText,
+          url: window.location.href
+        })
+        .catch(console.warn);
     });
   } else if (shareBtn) {
-    shareBtn.addEventListener("click", (e) => {
+    shareBtn.addEventListener("click", e => {
       e.preventDefault();
       toggleModal(modal);
       qrView.style.display = "block";
     });
   }
 
-  // Attach modal open/close logic
   closeBtn.addEventListener("click", () => toggleModal(modal));
   qrTrigger.addEventListener("click", () => {
     toggleModal(modal);
@@ -463,40 +368,10 @@ function setupQRModalAndSharing() {
   });
 }
 
-
-
-
 /**
- * Creates a downloadable `.vcf` (vCard) file from the `cardData` object and triggers a download.
- *
- * This function extracts user profile information, contact details, social media,
- * and a base64-encoded headshot image, and composes them into a valid vCard 3.0 format.
- * 
- * It also gracefully handles missing fields and provides fallbacks or alerts where needed.
- * 
- * Features:
- * - Name, company, title, email, phone number, birthday, address
- * - Embeds the profile image (base64 PNG)
- * - Includes website and all enabled social media profiles
- * - Adds WhatsApp and Google Business review links if present
- * - Includes the short bio as a vCard NOTE
- * 
- * File is named automatically based on the user's name (e.g. `johnsmith.vcf`)
- * and is downloaded without requiring server-side processing.
- *
- * @async
- * @function
- * @returns {void}
- *
- * @throws Alerts the user if image fetching fails (e.g., local file protocol) or data is missing.
- *
- * ⚠️ Notes:
- * - This must be run in a **web server environment** to load images reliably.
- * - Works best when `cardData.profileImage` is a valid path or full URL.
- * - If testing locally (file://), image embedding may fail due to browser security.
+ * Create and download .vcf vCard file with embedded profile photo as base64.
+ * Automatically names the file from fullName.
  */
-
-
 async function createAndDownloadVCard() {
   try {
     if (!cardData.fullName) {
@@ -504,47 +379,39 @@ async function createAndDownloadVCard() {
       return;
     }
 
-    // Split full name into first and last
     const [firstName, ...lastParts] = cardData.fullName.trim().split(" ");
     const lastName = lastParts.join(" ") || "";
 
-    // Fetch profile image as base64
-    const response = await fetch(cardData.profileImage);
-    if (!response.ok) throw new Error("Failed to load headshot image.");
+    const imgUrl = resolveUrl(cardData.baseUrl, cardData.profileImage);
+    const response = await fetch(imgUrl);
+    if (!response.ok) throw new Error("Failed to load profile image.");
+
     const blob = await response.blob();
     const reader = new FileReader();
 
     reader.onloadend = function () {
-      const base64 = reader.result.split(',')[1];
+      const base64 = reader.result.split(",")[1];
 
       const vcardLines = [
         "BEGIN:VCARD",
         "VERSION:3.0",
         `N:${lastName};${firstName};;;`,
         `FN:${cardData.fullName}`,
-        `ORG:${cardData.company}`,
-        `TITLE:${cardData.jobTitle}`,
+        `ORG:${cardData.company || ""}`,
+        `TITLE:${cardData.jobTitle || ""}`,
         `PHOTO;ENCODING=b;TYPE=PNG:${base64}`,
         `TEL;TYPE=cell,voice:${sanitizePhone(cardData.telNumber)}`,
         `TEL;TYPE=work,voice:${sanitizePhone(cardData.officeNumber)}`,
         `EMAIL;TYPE=internet:${cardData.email}`
       ];
 
-      // Optional fields
-      if (cardData.birthday)
-        vcardLines.push(`BDAY:${cardData.birthday}`);
+      if (cardData.birthday) vcardLines.push(`BDAY:${cardData.birthday}`);
+      if (cardData.address) vcardLines.push(`ADR;TYPE=work:;;${cardData.address.replace(/,/g, ";")}`);
+      if (cardData.websiteUrl) vcardLines.push(`URL:${cardData.websiteUrl}`);
 
-      if (cardData.address)
-        vcardLines.push(`ADR;TYPE=work:;;${cardData.address.replace(/,/g, ";")}`);
-
-      if (cardData.websiteUrl)
-        vcardLines.push(`URL:${cardData.websiteUrl}`);
-
-      if (cardData.socialProfiles && Array.isArray(cardData.socialProfiles)) {
-        cardData.socialProfiles.forEach(profile => {
-          if (profile.type && profile.url) {
-            vcardLines.push(`X-SOCIALPROFILE;type=${profile.type}:${profile.url}`);
-          }
+      if (Array.isArray(cardData.socialProfiles)) {
+        cardData.socialProfiles.forEach(({ type, url }) => {
+          if (type && url) vcardLines.push(`X-SOCIALPROFILE;type=${type}:${url}`);
         });
       }
 
@@ -557,20 +424,16 @@ async function createAndDownloadVCard() {
       if (cardData.googleBusinessProfile) {
         vcardLines.push(`X-ABLabel:GoogleReviews`);
         vcardLines.push(`X-SOCIALPROFILE;type=review:${cardData.googleBusinessProfile}`);
-     }
+      }
 
-
-      if (cardData.bio)
-        vcardLines.push(`NOTE:${cardData.bio}`);
+      if (cardData.bio) vcardLines.push(`NOTE:${cardData.bio}`);
 
       vcardLines.push("END:VCARD");
 
-      // Final vCard string
-      const vcard = vcardLines.join("\n");
+      const vcardString = vcardLines.join("\n");
+      const vcardBlob = new Blob([vcardString], { type: "text/vcard;charset=utf-8" });
 
-      // Create file and trigger download
-      const vcardBlob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = URL.createObjectURL(vcardBlob);
       link.download = `${firstName.toLowerCase()}${lastName.toLowerCase()}.vcf`;
       document.body.appendChild(link);
@@ -579,59 +442,29 @@ async function createAndDownloadVCard() {
     };
 
     reader.readAsDataURL(blob);
-
   } catch (error) {
     console.error("vCard generation error:", error);
-    const isLocalFile = location.protocol === "file:";
-    if (isLocalFile || error.message.includes("Failed to load headshot image")) {
-      alert("This feature must be tested on a web server or use a full image URL for the profile image. Local file access is restricted.");
+    if (location.protocol === "file:" || error.message.includes("Failed to load profile image")) {
+      alert("Run this on a web server or use full image URLs. Local file access is restricted.");
     } else {
-      alert("There was an error generating the vCard.");
+      alert("Error generating vCard.");
     }
   }
 }
 
-
-
-
-/**
- * Initializes the vCard functionality once the DOM is fully loaded.
- *
- * This bootstraps the entire digital business card experience by:
- * 
- * 1. Injecting dynamic content from `cardData` into the page:
- *    - Text fields, contact buttons, images, reviews, and footer
- *
- * 2. Setting up QR code and share button logic:
- *    - Generates the QR code
- *    - Attaches open/close modal handlers
- *    - Enables native share API or fallback
- *
- * 3. Rendering social profile icons:
- *    - Injects icons into the `.social-links` container based on `cardData.socialProfiles`
- *
- * 4. Attaching vCard download functionality:
- *    - When the user clicks the “Save Contact” button, a `.vcf` file is generated and downloaded
- *
- * This function ensures all major features are initialized only after the DOM is ready,
- * avoiding race conditions or missing element references.
- */
-
+// Initialize after DOM ready
 document.addEventListener("DOMContentLoaded", async () => {
-  await loadCardData(); // ⬅ Load the JSON first
-injectMetaTags(cardData.meta);
-
+  await loadCardData();
+  injectMetaTags(cardData.meta, cardData.baseUrl);
   injectCardData();
   setupQRModalAndSharing();
   renderSocialProfiles(cardData.socialProfiles);
 
   const saveBtn = document.getElementById("vcf-save-contact");
   if (saveBtn) {
-    saveBtn.addEventListener("click", function (event) {
-      event.preventDefault();
+    saveBtn.addEventListener("click", e => {
+      e.preventDefault();
       createAndDownloadVCard();
     });
   }
 });
-
-

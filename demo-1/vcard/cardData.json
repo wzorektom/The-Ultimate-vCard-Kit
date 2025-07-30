@@ -1,4 +1,6 @@
 {
+  "baseUrl": "https://vcard-demo.co.uk/test6/vcard/",
+
   "fullName": "Liam Thorley",
   "jobTitle": "Client Relations Manager",
   "company": "My Company Solutions Ltd",
@@ -47,26 +49,21 @@
     "description": "The digital business card of Liam Thorley - ready to save, share, and connect.",
     "author": "Liam Thorley",
     "robots": "noindex, nofollow",
-
     "favicon": "images/favi-100x100.png",
     "appleTouchIcon": "images/bookmark-128x128.png",
-
     "og": {
       "type": "website",
       "title": "Liam Thorley Digital Business Card",
       "description": "The digital business card of Liam Thorley - ready to save, share, and connect.",
       "image": "images/share-1200x630.png",
       "imageWidth": "1200",
-      "imageHeight": "630",
-      "url": "https://vcard-demo.co.uk/liamt/vcard/"
+      "imageHeight": "630"
     },
-
     "twitter": {
       "card": "summary_large_image",
       "title": "Liam Thorley Digital Business Card",
       "description": "The digital business card of Liam Thorley - ready to save, share, and connect.",
-      "image": "images/share-1200x630.png",
-      "url": "https://vcard-demo.co.uk/liamt/vcard/"
+      "image": "images/share-1200x630.png"
     }
   }
 }
