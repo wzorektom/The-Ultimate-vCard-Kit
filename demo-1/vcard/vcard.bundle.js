@@ -10,18 +10,28 @@
 let cardData = {};
 
 /**
- * Load cardData from external JSON file.
+ * Load cardData from embedded JSON or external file.
  */
 async function loadCardData() {
+  const embedded = document.getElementById("card-data");
+  if (embedded) {
+    try {
+      cardData = JSON.parse(embedded.textContent);
+      return;
+    } catch (err) {
+      console.warn("Invalid embedded card data", err);
+    }
+  }
+
   try {
-    const response = await fetch("./cardData.json", { cache: "no-store" });
-    if (!response.ok) throw new Error("Failed to load cardData.json");
-    cardData = await response.json();
+    const res = await fetch("cardData.json");
+    cardData = await res.json();
   } catch (err) {
-    console.error("Error loading card data:", err);
-    alert("Problem loading card data.");
+    console.error("Failed to fetch cardData.json", err);
+    cardData = {}; // fallback
   }
 }
+
 
 /**
  * Clean phone numbers for use in `tel:` and WhatsApp links.
