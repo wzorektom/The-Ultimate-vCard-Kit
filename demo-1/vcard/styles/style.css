@@ -815,6 +815,23 @@ footer a {
   opacity: 0.7;
 }
 
+.footer-credit {
+  font-size: var(--font-size-xs);
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.footer-credit a {
+  color: var(--footer-text-color);
+  text-decoration: none;
+}
+
+.footer-credit a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
 /* =============================================================
    10. Utility helpers
    ============================================================= */

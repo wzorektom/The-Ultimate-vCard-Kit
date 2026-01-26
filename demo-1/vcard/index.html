@@ -19,11 +19,10 @@
         <!-- ==================== -->
         <!-- Basic Page Metadata  -->
         <!-- ==================== -->
-        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="author" content="Liam Thorley" />
-        <meta name="description" content="The digital business card of Liam Thorley - ready to save, share, and connect." />
-        <title>Liam Thorley Digital Business Card</title>
+        <meta name="author" id="meta-author" content="Liam Thorley" />
+        <meta name="description" id="meta-description" content="Liam Thorley Digital Business Card" />
+        <title id="meta-title">Liam Thorley Digital Business Card</title>
         
         <!-- =========================== -->
         <!-- SEO Indexing Instructions   -->
@@ -41,28 +40,31 @@
         <!-- ======================== -->
         <!-- Favicon and App Icons    -->
         <!-- ======================== -->
-        <link rel="icon" href="https://vcard-demo.co.uk/liamt/vcard/images/favi-100x100.png" />
-        <link rel="apple-touch-icon" sizes="128x128" href="https://vcard-demo.co.uk/liamt/vcard/images/bookmark-128x128.png" />
+        <link id="favicon-link" rel="icon" href="https://vcard-demo.co.uk/test22/vcard/images/favi-100x100.png" />
+        <link id="apple-touch-icon" rel="apple-touch-icon" sizes="128x128" href="https://vcard-demo.co.uk/test22/vcard/images/bookmark-128x128.png" />
         
-        <!-- ================================ -->
+       <!-- ================================ -->
         <!-- Open Graph (Facebook, LinkedIn)  -->
         <!-- ================================ -->
+        <!-- These must be hardcoded for social sharing to work -->
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Liam Thorley Digital Business Card" />
         <meta property="og:description" content="The digital business card of Liam Thorley - ready to save, share, and connect." />
-        <meta property="og:image" content="https://vcard-demo.co.uk/liamt/vcard/images/share-1200x630.png" />
+        <meta property="og:image" content="https://vcard-demo.co.uk/test22/vcard/images/share-1200x630.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://vcard-demo.co.uk/liamt/vcard/" />
-        
+        <meta property="og:url" content="https://vcard-demo.co.uk/test22/vcard/" />
+
         <!-- ======================== -->
         <!-- Twitter Card Metadata    -->
         <!-- ======================== -->
+        <!-- Twitter also needs static tags -->
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Liam Thorley Digital Business Card" />
         <meta name="twitter:description" content="The digital business card of Liam Thorley - ready to save, share, and connect." />
-        <meta name="twitter:image" content="https://vcard-demo.co.uk/liamt/vcard/images/share-1200x630.png" />
-        <meta name="twitter:url" content="https://vcard-demo.co.uk/liamt/vcard/" />
+        <meta name="twitter:image" content="https://vcard-demo.co.uk/test22/vcard/images/share-1200x630.png" />
+        <meta name="twitter:url" content="https://vcard-demo.co.uk/test22/vcard/" />
+
         
         <!-- Styles -->
         <link rel="stylesheet" href="./styles/style.css" />
@@ -70,7 +72,7 @@
 
     </head>
     <body id="body">
-      <a href="https://pixelpeakstudio.co.uk" class="attribution-hidden">Web Design by PixelPeakStudio</a>
+
 
         <svg xmlns="http://www.w3.org/2000/svg" class="symbol-defs">
             
@@ -340,12 +342,14 @@
 
 
         <footer class="site-footer" role="contentinfo" aria-label="Company footer">
-            <p id="site-footer-tagline" class="footer-tagline"></p>
+            <p id="site-footer-tagline" class="footer-tagline"></p>           
             <a id="site-footer-link" href="#" class="footer-link" aria-label="Visit company website">
                 Loading Footer Note...
             </a>
             <span id="site-footer-year" aria-label="Current year"></span>
+            <br />
         </footer>
+
 
         <script src="./scripts/qrcode.min.js" type="text/javascript"></script>
         <script src="./vcard.bundle.js" type="text/javascript"></script>
