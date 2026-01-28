@@ -5,12 +5,10 @@ Includes vCard (.vcf) download, QR code modal, native share button, social links
 
 ## Demos
 
-- demo-1: <a href="https://vcard-demo.co.uk/liamt/vcard/index.html" target="_blank" rel="noopener noreferrer">
-Demo 1 – Masculine style
-</a>
-- demo-2: <a href="https://vcard-demo.co.uk/miras/vcard/index.html" target="_blank" rel="noopener noreferrer">
-Demo 2 – Feminine style
-</a>
+- demo-1: <a href="https://vcard-demo.co.uk/liamt/vcard/index.html" target="_blank" rel="noopener noreferrer"> Demo 1 – Masculine style </a>
+- demo-2: <a href="https://vcard-demo.co.uk/miras/vcard/index.html" target="_blank" rel="noopener noreferrer"> Demo 2 – Feminine style </a>
+
+## If this project helped you, <a href="https://buymeacoffee.com/pixelpeakstudio" target="_blank" rel="noopener noreferrer"> shout me a coffee </a>  ☕ - it keeps the updates coming.
 
 ## Repository structure
 
