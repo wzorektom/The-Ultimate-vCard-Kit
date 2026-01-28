@@ -93,32 +93,69 @@
   <li><strong>Name:</strong> Tomasz Wzorek</li>
   <li><strong>Website:</strong> <a href="https://pixelpeakstudio.co.uk" target="_blank" rel="noopener noreferrer">Pixel Peak Studio</a></li>
   <li><strong>Email:</strong> <a href="mailto:thomas@pixelpeakstudio.co.uk">thomas@pixelpeakstudio.co.uk</a></li>
-  <li><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=61575377696995" target="_blank" rel="noopener noreferrer">@pixelpeakstudio</a></li>
 </ul>
 
 <h2>1. Folder Structure</h2>
 <p>
-  The folder you received is named <code>vcard</code>. All paths are configured to work with this folder name.
-  <strong>Do not rename it</strong> unless you also update all related references and URLs.
+  This repo includes two example themes:
+  <strong>demo-1</strong> is a more masculine-leaning style (bolder colours and styling),
+  while <strong>demo-2</strong> is a more feminine-leaning style (softer colours and styling).
+  Both demos use the same template and functionality - only the styling, images, and sample data differ.
 </p>
 
-<pre><code>vcard/
-  index.html
-  cardData.json
-  vcard.bundle.js
-  styles/style.css
-  scripts/qrcode.min.js
-  images/...</code></pre>
+
+
+<pre><code>THE-ULTIMATE-VCARD-KIT/
+├─ start-here.html
+├─ LICENSE.txt
+│
+├─ demo-1/
+│   ├─ Assets/
+│   └─ vcard/
+│       ├─ index.html
+│       ├─ cardData.json
+│       ├─ vcard.bundle.js
+│       ├─ styles/
+│       │   └─ style.css
+│       ├─ scripts/
+│       │   └─ qrcode.min.js
+│       └─ images/
+│           └─ ...
+│
+├─ demo-2/
+│   ├─ Assets/
+│   └─ vcard/
+│       ├─ index.html
+│       ├─ cardData.json
+│       ├─ vcard.bundle.js
+│       ├─ styles/
+│       │   └─ style.css
+│       ├─ scripts/
+│       │   └─ qrcode.min.js
+│       └─ images/
+│           └─ ...
+</code></pre>
+
 
 <h2>2. Files Overview</h2>
 <ul>
-  <li><strong><code>cardData.json</code></strong> – <strong>main file you edit</strong> (text, links, images, share settings)</li>
-  <li><strong><code>index.html</code></strong> – page shell + <strong>social sharing meta tags</strong> (Open Graph / Twitter)</li>
-  <li><strong><code>vcard.bundle.js</code></strong> – reads <code>cardData.json</code> and renders the page + vCard download</li>
-  <li><strong><code>styles/style.css</code></strong> – styling + colour variables</li>
-  <li><strong><code>scripts/qrcode.min.js</code></strong> – QR code library (do not edit)</li>
-  <li><strong><code>images/</code></strong> – profile image, cover image, favicon, share preview image(s)</li>
+  <li><strong><code>demo-1/</code> and <code>demo-2/</code></strong> - two complete example setups (same template, different styling + sample data)</li>
+  <li><strong><code>vcard/cardData.json</code></strong> - <strong>main file you edit</strong> (text, links, image paths, share settings, etc.)</li>
+  <li><strong><code>vcard/index.html</code></strong> - page shell + <strong>social sharing meta tags</strong> (title/description, Open Graph, Twitter/X, favicon/icon absolute URLs)</li>
+  <li><strong><code>vcard/vcard.bundle.js</code></strong> - reads <code>cardData.json</code> and renders the page + vCard download logic</li>
+  <li><strong><code>vcard/styles/style.css</code></strong> - styling + colour/theme variables</li>
+  <li><strong><code>vcard/scripts/qrcode.min.js</code></strong> - QR code library (do not edit)</li>
+  <li><strong><code>vcard/images/</code></strong> - profile image, cover image, favicon, share preview images (PNG files used by the live vCard)</li>
+  <li><strong><code>Assets/</code></strong> - editable design source files (PSD templates) + matching exported PNGs (use these to update <code>share-1200x630.png</code>, favicons, cover/profile images, etc.)</li>
+  <li><strong><code>start-here.html</code></strong> - optional helper / demo landing page (if included in your repo)</li>
+  <li><strong><code>LICENSE.txt</code></strong> - open-source licence for this repository</li>
 </ul>
+
+<div class="tip">
+  <strong>Tip:</strong> If you edit a PSD in <code>Assets/</code>, export a new PNG with the <em>same filename</em> into
+  <code>vcard/images/</code> (or update the filename in <code>cardData.json</code> and the share/meta image URLs in <code>index.html</code>).
+</div>
+
 
 <div class="warn">
   <strong>Important:</strong> If you change image filenames, update the matching paths in <code>cardData.json</code>
@@ -128,36 +165,161 @@
 <h2>3. Edit Your Content in <code>cardData.json</code></h2>
 
 <p>
-  Open <code>vcard/cardData.json</code>. This file contains your profile details and settings.
-  You can safely edit values inside quotes. Avoid removing commas, brackets, or keys.
+  Open <code>vcard/cardData.json</code>. This file is the single source of truth for your vCard content.
+  Everything you see on the page (and everything saved into the downloadable vCard) is pulled from here.
+  You can safely edit the text inside quotes, but don't delete commas, brackets, or field names (keys),
+  otherwise the JSON will break and the card won't load.
 </p>
 
-<h3>Common Fields</h3>
+<div class="tip">
+  <strong>Tip:</strong> If the card suddenly stops loading after an edit, it's usually a JSON formatting issue
+  (missing comma, extra comma, or missing quotes). Undo your last change, save again, and re-check.
+</div>
+
+<h3>Example Structure</h3>
+<p>
+  Here's a real example (shortened) so you can see how values are stored:
+</p>
+
+<pre><code>{
+  "fullName": "Mira Solensen",
+  "jobTitle": "Founder & Domestic Services Consultant",
+  "company": "Purespace Property Care Ltd",
+  "email": "mirasolensen@mycompany.com",
+  "telNumber": "+440000000001",
+  "websiteUrl": "https://mycompany.com",
+  "address": "London, United Kingdom",
+  "bio": "Purespace Property Care Ltd provides professional cleaning...",
+  "profileImage": "images/headshoot-300x300.png",
+  "coverImage": "images/cover-960x640.png"
+}</code></pre>
+
+<h3>Common Fields (What Each One Does)</h3>
 <table>
-  <tr><th>Field</th><th>What it controls</th></tr>
-  <tr><td><code>fullName</code></td><td>Your full name (page + vCard download)</td></tr>
-  <tr><td><code>jobTitle</code></td><td>Shown under your name</td></tr>
-  <tr><td><code>company</code></td><td>Your business / brand</td></tr>
-  <tr><td><code>birthday</code></td><td>Birth date in <code>yyyymmdd</code> format (example: <code>19900101</code>)</td></tr>
-  <tr><td><code>email</code></td><td>Email button + vCard</td></tr>
-  <tr><td><code>telNumber</code></td><td>Main phone (call button + vCard)</td></tr>
-  <tr><td><code>officeNumber</code></td><td>Optional office/landline</td></tr>
-  <tr><td><code>whatsappNumber</code></td><td>Used for WhatsApp button</td></tr>
-  <tr><td><code>websiteUrl</code></td><td>Website link</td></tr>
-  <tr><td><code>address</code></td><td>Address shown on page + vCard</td></tr>
-  <tr><td><code>bio</code></td><td>Short personal intro</td></tr>
-  <tr><td><code>companyDescription</code></td><td>Longer description inside the company section</td></tr>
+  <tr><th>Field</th><th>What it controls</th><th>Example value</th></tr>
+
+  <tr>
+    <td><code>fullName</code></td>
+    <td>Your full name shown on the card and used in the vCard download.</td>
+    <td><code>Mira Solensen</code></td>
+  </tr>
+
+  <tr>
+    <td><code>jobTitle</code></td>
+    <td>The subtitle under your name (keep it short so it fits nicely).</td>
+    <td><code>Founder &amp; Domestic Services Consultant</code></td>
+  </tr>
+
+  <tr>
+    <td><code>company</code></td>
+    <td>Your business/brand name (shown on the card and used in contact details).</td>
+    <td><code>Purespace Property Care Ltd</code></td>
+  </tr>
+
+  <tr>
+    <td><code>birthday</code></td>
+    <td>
+      Your birthday stored in <code>yyyymmdd</code> format for the vCard file.<br>
+      Example: 1st January 1990 = <code>19900101</code>
+    </td>
+    <td><code>19900101</code></td>
+  </tr>
+
+  <tr>
+    <td><code>email</code></td>
+    <td>Email used by the Email button and saved into the vCard.</td>
+    <td><code>mirasolensen@mycompany.com</code></td>
+  </tr>
+
+  <tr>
+    <td><code>telNumber</code></td>
+    <td>
+      Main phone number used by the Call button and saved into the vCard.<br>
+      Use international format if possible (recommended): <code>+44...</code>
+    </td>
+    <td><code>+440000000001</code></td>
+  </tr>
+
+  <tr>
+    <td><code>officeNumber</code></td>
+    <td>
+      Optional secondary number (office/landline). If you don't want it, keep it as an empty string
+      or remove usage from your UI (depending on your template behaviour).
+    </td>
+    <td><code>+440000000002</code></td>
+  </tr>
+
+  <tr>
+    <td><code>whatsappNumber</code></td>
+    <td>
+      Number used by the WhatsApp button. Usually the same as <code>telNumber</code>.<br>
+      Keep it in international format (<code>+44...</code>).
+    </td>
+    <td><code>+440000000001</code></td>
+  </tr>
+
+  <tr>
+    <td><code>websiteUrl</code></td>
+    <td>Your website link (used for the website button/link and often included in sharing).</td>
+    <td><code>https://mycompany.com</code></td>
+  </tr>
+
+  <tr>
+    <td><code>address</code></td>
+    <td>
+      Address shown on the card and stored in the vCard. This can be full address or just a city/area.
+    </td>
+    <td><code>London, United Kingdom</code></td>
+  </tr>
+
+  <tr>
+    <td><code>bio</code></td>
+    <td>
+      Short “about” sentence shown near the top of the card. Aim for 1-2 lines for best layout.
+    </td>
+    <td><code>Purespace Property Care Ltd provides professional cleaning...</code></td>
+  </tr>
+
+  <tr>
+    <td><code>companyDescription</code></td>
+    <td>
+      Longer description shown in the company/info box (you can be more detailed here).
+    </td>
+    <td><code>We specialise in deep cleaning, end-of-tenancy preparations...</code></td>
+  </tr>
 </table>
+
 
 <h3>Images</h3>
 <p>
-  Replace your images inside <code>vcard/images/</code>, then ensure the paths in <code>cardData.json</code> match:
+  The image fields reference files inside <code>vcard/images/</code>. If you replace images, either:
+  keep the same filename, or update these paths to match.
 </p>
 
 <pre><code>{
   "profileImage": "images/headshoot-300x300.png",
   "coverImage": "images/cover-960x640.png"
 }</code></pre>
+
+<div class="warn">
+  <strong>Important:</strong> If you change image filenames used for social sharing (like <code>share-1200x630.png</code>),
+  you must also update the absolute URLs inside <code>index.html</code> (Open Graph + Twitter tags),
+  otherwise WhatsApp/Facebook/LinkedIn previews will still show the old image or none at all.
+</div>
+
+<h3>Footer and Sharing Text</h3>
+<p>
+  These control your footer line and the text used by the mobile Share button:
+</p>
+
+<pre><code>{
+  "footerTagline": "Your Trusted Partner in Home and Property Care.",
+  "footerCompanyUrl": "https://mycompany.com/",
+  "footerCompanyName": "Purespace Property Care Ltd",
+  "shareTitle": "Mira Solensen Digital Business Card",
+  "shareText": "You can view my Digital Business Card here:"
+}</code></pre>
+
 
 <h3>Social Profiles</h3>
 <p>
@@ -167,7 +329,7 @@
 
 <div class="tip">
   <strong>Show / hide a profile:</strong> set <code>"enabled": true</code> or <code>false</code>.<br>
-  If <code>enabled</code> is missing, it’s treated as enabled by default.
+  If <code>enabled</code> is missing, it's treated as enabled by default.
 </div>
 
 <pre><code>"socialProfiles": [
@@ -184,9 +346,9 @@
 }</code></pre>
 
 <ul>
-  <li><strong><code>googleBusinessProfile</code></strong> – where the review link points</li>
-  <li><strong><code>ratingValue</code></strong> – rating from <code>0.0</code> to <code>5.0</code> (use decimal format like <code>4.0</code>)</li>
-  <li><strong><code>reviewLinkText</code></strong> – the clickable label next to the stars</li>
+  <li><strong><code>googleBusinessProfile</code></strong> - where the review link points</li>
+  <li><strong><code>ratingValue</code></strong> - rating from <code>0.0</code> to <code>5.0</code> (use decimal format like <code>4.0</code>)</li>
+  <li><strong><code>reviewLinkText</code></strong> - the clickable label next to the stars</li>
 </ul>
 
 <h3>QR Code Modal</h3>
@@ -195,12 +357,6 @@
   "qrDescription": "to view my Business Card on another device"
 }</code></pre>
 
-<h3>Footer</h3>
-<pre><code>{
-  "footerTagline": "Smart connections start with a digital card.",
-  "footerCompanyUrl": "https://yourwebsite.com/",
-  "footerCompanyName": "Your Company Ltd"
-}</code></pre>
 
 <h3>Sharing (Mobile Share Button)</h3>
 <p>
@@ -211,60 +367,103 @@
   "shareText": "You can view my Digital Business Card here:"
 }</code></pre>
 
+
+
 <h2>4. Update <code>index.html</code> (Important for Social Sharing)</h2>
 
 <p>
-  Even though your vCard content is loaded from JSON, <strong>social platforms do not run JavaScript</strong>.
-  That means your preview on WhatsApp, Facebook, LinkedIn, Messenger, and X/Twitter depends on the hardcoded
-  meta tags inside <code>vcard/index.html</code>.
+  Your vCard content is loaded from <code>cardData.json</code>, but <strong>social platforms do not run JavaScript</strong>.
+  When someone shares your link on WhatsApp, Facebook, LinkedIn, Messenger, or X/Twitter, the preview card is generated
+  only from the static meta tags inside <code>vcard/index.html</code>.
 </p>
 
 <div class="warn">
-  <strong>You MUST update these in <code>index.html</code> for each card:</strong>
+  <strong>Update these in <code>index.html</code> for every new vCard:</strong>
   <ul>
-    <li><code>&lt;title&gt;</code> and the basic meta tags (<code>author</code>, <code>description</code>)</li>
-    <li>Favicon + Apple icon links (must be <strong>absolute</strong> URLs on your domain)</li>
-    <li>Open Graph tags (<code>og:title</code>, <code>og:description</code>, <code>og:image</code>, <code>og:url</code>)</li>
-    <li>Twitter/X tags (<code>twitter:title</code>, <code>twitter:description</code>, <code>twitter:image</code>, <code>twitter:url</code>)</li>
+    <li>
+      <strong>Basic metadata:</strong>
+      <code>&lt;title&gt;</code>, <code>&lt;meta name="author"&gt;</code>, <code>&lt;meta name="description"&gt;</code>
+    </li>
+    <li>
+      <strong>Open Graph (Facebook/LinkedIn/WhatsApp):</strong>
+      <code>og:title</code>, <code>og:description</code>, <code>og:image</code>, <code>og:url</code>
+    </li>
+    <li>
+      <strong>Twitter/X:</strong>
+      <code>twitter:title</code>, <code>twitter:description</code>, <code>twitter:image</code>, <code>twitter:url</code>
+    </li>
   </ul>
 </div>
 
 <p>
-  These URLs must point to publicly accessible files on your live site.
-  Example (replace with your domain and path):
+  <strong>Important:</strong> <code>og:image</code>, <code>twitter:image</code>, <code>og:url</code>, and <code>twitter:url</code>
+  should use <strong>absolute</strong> URLs to your live site (social crawlers don’t reliably resolve relative paths).
+  The image URL must point to a publicly accessible file (no logins, no private folders).
 </p>
 
-<pre><code>&lt;meta property="og:image" content="https://yourdomain.com/vcard/images/share-1200x630.png"&gt;
-&lt;meta property="og:url" content="https://yourdomain.com/vcard/"&gt;
+<pre><code>&lt;!-- Open Graph (Facebook, LinkedIn) --&gt;
+&lt;meta property="og:type" content="website" /&gt;
+&lt;meta property="og:title" content="Liam Thorley Digital Business Card" /&gt;
+&lt;meta property="og:description" content="The digital business card of Liam Thorley - ready to save, share, and connect." /&gt;
+&lt;meta property="og:image" content="https://vcard-demo.co.uk/test22/vcard/images/share-1200x630.png" /&gt;
+&lt;meta property="og:image:width" content="1200" /&gt;
+&lt;meta property="og:image:height" content="630" /&gt;
+&lt;meta property="og:url" content="https://vcard-demo.co.uk/test22/vcard/" /&gt;
 
-&lt;meta name="twitter:image" content="https://yourdomain.com/vcard/images/share-1200x630.png"&gt;
-&lt;meta name="twitter:url" content="https://yourdomain.com/vcard/"&gt;
-
-&lt;link rel="icon" href="https://yourdomain.com/vcard/images/favi-100x100.png"&gt;
-&lt;link rel="apple-touch-icon" sizes="128x128" href="https://yourdomain.com/vcard/images/bookmark-128x128.png"&gt;</code></pre>
+&lt;!-- Twitter / X --&gt;
+&lt;meta name="twitter:card" content="summary_large_image" /&gt;
+&lt;meta name="twitter:title" content="Liam Thorley Digital Business Card" /&gt;
+&lt;meta name="twitter:description" content="The digital business card of Liam Thorley - ready to save, share, and connect." /&gt;
+&lt;meta name="twitter:image" content="https://vcard-demo.co.uk/test22/vcard/images/share-1200x630.png" /&gt;
+&lt;meta name="twitter:url" content="https://vcard-demo.co.uk/test22/vcard/" /&gt;</code></pre>
 
 <div class="tip">
-  You can test share previews using:
+  <strong>Preview not updating?</strong> Social platforms cache previews aggressively.
+  Use these tools to force a refresh:
   <ul>
     <li><a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener noreferrer">Facebook Sharing Debugger</a></li>
     <li><a href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener noreferrer">LinkedIn Post Inspector</a></li>
   </ul>
-  If the preview doesn’t update, use these tools to refresh the cached preview.
 </div>
+
+
+
+
 
 <h2>5. Preview Locally (Recommended)</h2>
 <p>
-  To preview everything properly (QR, share modal, buttons, JSON loading), use a local web server such as:
+  To preview everything properly (QR, share modal, buttons, JSON loading), use a local web server.
+  This template uses a <strong>strict Content Security Policy (CSP)</strong>, so it will not behave correctly if you
+  open <code>index.html</code> directly from your file system (<code>file://</code>).
 </p>
+
 <ul>
-  <li><strong>Live Server</strong> extension in Visual Studio Code</li>
+  <li><strong>Visual Studio Code + Live Server</strong> (recommended)</li>
   <li><strong>LocalWP</strong> if you prefer a beginner-friendly local environment</li>
 </ul>
 
-<div class="tip">
-  <strong>Important:</strong> Do not open <code>index.html</code> by double-clicking it (<code>file://</code>).  
-  Use a local server so the JSON file loads correctly.
+<div class="warn">
+  <strong>Expected warning if opened incorrectly:</strong><br>
+  If you run the template by double-clicking <code>index.html</code> (or from the wrong folder root),
+  your browser may show console errors such as CSP blocks and CORS failures (for example: blocked images, blocked
+  inline scripts, or “origin null” when loading <code>cardData.json</code>). This is normal in that scenario.
+  <br><br>
+  ✅ These warnings will <strong>not</strong> appear once:
+  <ul>
+    <li>you run the project through a proper local server (e.g. Live Server), and</li>
+    <li>the vCard is uploaded and served from a real web host (same origin as the files).</li>
+  </ul>
 </div>
+
+<div class="tip">
+  <strong>Important:</strong> Do not open <code>index.html</code> by double-clicking it (<code>file://</code>).
+  Always use a local server so the JSON file loads correctly under CSP.
+  <br><br>
+  <strong>VS Code tip:</strong> Open the project folder in VS Code (the folder that contains <code>demo-1</code> and
+  <code>demo-2</code>), then right-click <code>demo-1/vcard/index.html</code> and choose
+  <em>“Open with Live Server”</em>.
+</div>
+
 
 <h2>6. Deploy Your vCard</h2>
 <ol>
@@ -277,7 +476,7 @@
 </ol>
 
 <div class="tip">
-  <strong>Changes not showing up?</strong> It’s usually caching.<br>
+  <strong>Changes not showing up?</strong> It's usually caching.<br>
   Try a hard refresh (Ctrl+F5 / Cmd+Shift+R). If using Cloudflare, a caching plugin, or server caching, purge the cache there too.
 </div>
 
@@ -323,12 +522,11 @@
   <li><strong>Name:</strong> Tomasz Wzorek</li>
   <li><strong>Website:</strong> <a href="https://pixelpeakstudio.co.uk" target="_blank" rel="noopener noreferrer">Pixel Peak Studio</a></li>
   <li><strong>Email:</strong> <a href="mailto:thomas@pixelpeakstudio.co.uk">thomas@pixelpeakstudio.co.uk</a></li>
-  <li><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=61575377696995" target="_blank" rel="noopener noreferrer">@pixelpeakstudio</a></li>
 </ul>
 
 <footer>
   <p>
-    <strong>Copyright © 2025
+    <strong>Copyright © 2026
       <a href="https://www.facebook.com/profile.php?id=61575377696995" target="_blank" rel="noopener noreferrer">Tomasz Wzorek</a>
       /
       <a href="https://pixelpeakstudio.co.uk" target="_blank" rel="noopener noreferrer">Pixel Peak Studio</a>
